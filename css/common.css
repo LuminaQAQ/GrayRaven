@@ -1,0 +1,51 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
+ul {
+  display: block;
+  list-style-type: none;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+  unicode-bidi: isolate;
+}
+
+.gr-aside {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 999;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), transparent);
+}
+.gr-aside .ls-item {
+  padding: 1.25rem;
+}
+.gr-aside .ls-item > a {
+  width: 100%;
+  color: #fff;
+  text-decoration: none;
+}
+.gr-aside .ls-item > a:visited {
+  background-color: #000;
+}
+
+.sg-page {
+  height: 100vh;
+}
+
+#Home {
+  background-size: cover;
+  background-position: center center;
+}
+#Home video {
+  height: 100vh;
+}
