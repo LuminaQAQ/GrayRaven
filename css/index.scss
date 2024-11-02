@@ -26,23 +26,23 @@
 }
 
 .main-container {
-  transition: transform 0.5s;
   height: 100vh;
+  transition: transform 0.5s;
 
   .sg-page {
+    position: relative;
     height: 100vh;
-  }
-
-  #Home {
     background-size: cover;
     background-position: center center;
 
-    video {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      height: 100vh;
+    &[data-hash="Home"] {
+      video {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: 100vh;
+      }
     }
   }
 }

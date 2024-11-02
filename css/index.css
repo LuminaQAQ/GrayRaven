@@ -2,7 +2,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
   overflow: hidden;
 }
 
@@ -38,17 +37,16 @@ ul {
 }
 
 .main-container {
-  transition: transform 0.5s;
   height: 100vh;
+  transition: transform 0.5s;
 }
 .main-container .sg-page {
+  position: relative;
   height: 100vh;
-}
-.main-container #Home {
   background-size: cover;
   background-position: center center;
 }
-.main-container #Home video {
+.main-container .sg-page[data-hash=Home] video {
   position: absolute;
   left: 50%;
   top: 50%;
