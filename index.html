@@ -5,34 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>《战双帕弥什》官网——愿每一位重返地球的人类之子平安</title>
-    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
     <aside class="gr-aside">
         <ul>
-            <li class="ls-item">
-                <a href="#Home">首页</a>
-            </li>
-            <li class="ls-item"><a href="#News">新闻资讯</a></li>
-            <li class="ls-item"><a href="#CloudDatabase">云端资料库</a></li>
-            <li class="ls-item"><a href="#ThemeVideo">主题影音</a></li>
-            <li class="ls-item"><a href="#GameWallpaper">游戏壁纸</a></li>
-            <li class="ls-item"><a href="#Comics">游戏衍生</a></li>
-            <li class="ls-item"><a href="#GameFeature">游戏特色</a></li>
+            <li data-page="Home" class="ls-item">首页</li>
+            <li data-page="News" class="ls-item">新闻资讯</li>
+            <li data-page="CloudDatabase" class="ls-item">云端资料库</li>
+            <li data-page="ThemeVideo" class="ls-item">主题影音</li>
+            <li data-page="GameWallpaper" class="ls-item">游戏壁纸</li>
+            <li data-page="Comics" class="ls-item">游戏衍生</li>
+            <li data-page="GameFeature" class="ls-item">游戏特色</li>
         </ul>
     </aside>
 
-    <div id="Home" class="sg-page" style="background-image: url('./assets/imgs/home-bg.png');">
-        <video src="./assets/videos/home-video.mp4" autoplay muted loop></video>
+    <div id="mainContainer" class="main-container">
+        <div id="Home" class="sg-page" style="background-image: url('./assets/imgs/home-bg.png');">
+            <video src="./assets/videos/home-video.mp4" autoplay muted loop></video>
+        </div>
+
+        <div id="News" class="sg-page">
+            <h1>News</h1>
+        </div>
+
+        <div id="CloudDatabase" class="sg-page">
+            <h1>CloudDatabase</h1>
+        </div>
+
+        <div id="ThemeVideo" class="sg-page">
+            <h1>ThemeVideo</h1>
+        </div>
+
+        <div id="GameWallpaper" class="sg-page">
+            <h1>GameWallpaper</h1>
+        </div>
+
+        <div id="Comics" class="sg-page">
+            <h1>Comics</h1>
+        </div>
+
+        <div id="GameFeature" class="sg-page">
+            <h1>GameFeature</h1>
+        </div>
     </div>
 
-    <div id="News" class="sg-page">
-        <h1>News</h1>
-        <a href="#home">home</a>
-    </div>
-
-
+    <script src="./js/index.js"></script>
 </body>
 
 </html>
