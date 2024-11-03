@@ -1,26 +1,103 @@
 @import "./common.scss";
-@include clear-ul-default-style;
+
+:root {
+  --fs-title: 0.9rem;
+  --fs-desc: 0.7rem;
+  --fs-title-active: 1.1rem;
+}
 
 .gr-aside {
+  @include clear-ul-default-style;
+  display: block;
   position: fixed;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
 
+  padding: 1.25rem 0;
+  padding-left: 1.25rem;
+
   z-index: 999;
 
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), transparent);
 
-  .ls-item {
-    padding: 1.25rem;
-    width: 100%;
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
+  .cursor {
+    display: block;
 
-    &.active {
-      background-color: #f0f0f0;
-      color: #333;
+    position: absolute;
+    left: 1.25rem;
+    top: 0;
+    transform: translate(-50%, -50%);
+
+    width: 3px;
+    height: 1.25rem;
+
+    background-color: red;
+
+    transition: top 0.3s ease-in-out;
+  }
+
+  ul {
+    border-left: 1px solid rgba(212, 212, 212, 0.7);
+  }
+}
+
+.ls-item {
+  padding: 1.25rem;
+  width: 100%;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+
+  .title {
+    font-size: var(--fs-title);
+    transition: font-size 0.3s;
+  }
+
+  .desc {
+    display: block;
+    font-size: var(--fs-desc);
+    filter: opacity(0);
+    transition: filter 0.3s;
+
+    &::before,
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 0.95rem;
+      height: 1px;
+
+      transform: translateY(-2px);
+      scale: 0;
+
+      background-color: red;
+
+      transition: scale 0.8s;
+    }
+
+    &::before {
+      transform-origin: left center;
+      margin-right: 5px;
+    }
+
+    &::after {
+      transform-origin: right center;
+      margin-left: 5px;
+    }
+  }
+
+  &.active {
+    .title {
+      font-size: var(--fs-title-active);
+    }
+
+    .desc {
+      filter: opacity(1);
+
+      &::after,
+      &::before {
+        scale: 1;
+      }
     }
   }
 }

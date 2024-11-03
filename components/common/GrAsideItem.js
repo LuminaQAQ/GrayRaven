@@ -6,17 +6,7 @@ class GrAsideItem extends HTMLElement {
 
         shadowRoot.innerHTML = `
             <style>
-                .ls-item {
-                    padding: 1.25rem;
-                    width: 100%;
-                    color: #fff;
-                    text-decoration: none;
-                    cursor: pointer;
-                }
-                .ls-item.active {
-                    background-color: #f0f0f0;
-                    color: #333;
-                }
+                @import "../css/index.css";
             </style>
             <li class="ls-item">
                 <div class="title"></div>

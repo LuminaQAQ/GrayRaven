@@ -11,38 +11,7 @@ class GrAside extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.innerHTML = `
             <style>
-                ul {
-                    display: block;
-                    list-style-type: none;
-                    margin-block-start: 0em;
-                    margin-block-end: 0em;
-                    margin-inline-start: 0px;
-                    margin-inline-end: 0px;
-                    padding-inline-start: 0px;
-                    unicode-bidi: isolate;
-                    border-left: 1px solid #cccccc95;
-                }
-
-                .cursor {
-                    display: block;
-
-                    position: absolute;
-                    left: 1.25rem;
-                    top: 0;
-                    transform: translateY(-50%);
-
-                    width: 3px;
-                    height: 1.25rem;
-
-                    background-color: red;
-
-                    transition: top 0.3s ease-in-out;
-                }
-
-                .gr-aside {
-                    padding: 1.25rem 0;
-                    padding-left: 1.25rem;
-                }
+                @import "../../css/index.css";
             </style>
             <aside class="gr-aside">
                 <span class="cursor"></span>
@@ -51,7 +20,7 @@ class GrAside extends HTMLElement {
         `;
     }
 
-    // -------  -------
+    // ------- routes 路由导航列表 -------
     // #region
     get routes() {
         return this.#dataObj.routes;
@@ -64,6 +33,9 @@ class GrAside extends HTMLElement {
     // #endregion
     // ------- end -------
 
+    /**
+     * 渲染导航列表
+     */
     #renderNavList() {
         const hash = window.location.hash.substring(1);
         const container = this.shadowRoot.querySelector(".gr-aside ul");
@@ -90,7 +62,10 @@ class GrAside extends HTMLElement {
         })
 
     }
-
+    /**
+     * 处理导航的激活状态
+     * @param {Array <HTMLElement>} items 
+     */
     #handleItemActive(items) {
         const hash = window.location.hash.substring(1);
         const cursor = this.shadowRoot.querySelector(".cursor");
@@ -100,6 +75,12 @@ class GrAside extends HTMLElement {
         });
     }
 
+    /**
+     * 处理当前激活状态
+     * @param {HTMLElement} item 导航元素
+     * @param {String} hash 浏览器的 `hash` 值
+     * @param {HTMLElement} cursor 跟随选中元素的滚动条
+     */
     #handleIsActive(item, hash, cursor) {
         if (hash === item.hash) {
             item.active = true;
