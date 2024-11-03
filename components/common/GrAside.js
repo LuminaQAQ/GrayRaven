@@ -11,7 +11,41 @@ class GrAside extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.innerHTML = `
             <style>
-                @import "../../css/index.css";
+                .gr-aside {
+                    display: block;
+                    position: fixed;
+                    top: 50%;
+                    left: 0;
+                    transform: translateY(-50%);
+                    padding: 1.25rem 0;
+                    padding-left: 1.25rem;
+                    z-index: 999;
+                    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), transparent);
+                }
+                .gr-aside ul {
+                    display: block;
+                    list-style-type: none;
+                    margin-block-start: 0em;
+                    margin-block-end: 0em;
+                    margin-inline-start: 0px;
+                    margin-inline-end: 0px;
+                    padding-inline-start: 0px;
+                    unicode-bidi: isolate;
+                }
+                .gr-aside .cursor {
+                    display: block;
+                    position: absolute;
+                    left: 1.25rem;
+                    top: 0;
+                    transform: translate(-50%, -50%);
+                    width: 3px;
+                    height: 1.25rem;
+                    background-color: red;
+                    transition: top 0.3s ease-in-out;
+                }
+                .gr-aside ul {
+                    border-left: 1px solid rgba(212, 212, 212, 0.7);
+                }
             </style>
             <aside class="gr-aside">
                 <span class="cursor"></span>
