@@ -88,4 +88,6 @@ const elevatorNavigation = {
     }
 }
 
-elevatorNavigation.init();
+window.addEventListener("load", () => {
+    elevatorNavigation.init();
+});
