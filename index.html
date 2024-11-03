@@ -9,17 +9,7 @@
 </head>
 
 <body>
-    <aside class="gr-aside">
-        <ul>
-            <li data-page="Home" class="ls-item">首页</li>
-            <li data-page="News" class="ls-item">新闻资讯</li>
-            <li data-page="CloudDatabase" class="ls-item">云端资料库</li>
-            <li data-page="ThemeVideo" class="ls-item">主题影音</li>
-            <li data-page="GameWallpaper" class="ls-item">游戏壁纸</li>
-            <li data-page="Comics" class="ls-item">游戏衍生</li>
-            <li data-page="GameFeature" class="ls-item">游戏特色</li>
-        </ul>
-    </aside>
+    <gr-aside class="gr-aside"></gr-aside>
 
     <div id="mainContainer" class="main-container">
         <div data-hash="Home" class="sg-page" style="background-image: url('./assets/imgs/home-bg.png');">
@@ -52,6 +42,51 @@
     </div>
 
     <script src="./js/index.js"></script>
+    <script type="module">
+        import "./components/common/GrAside.js"
+
+        const aside = document.querySelector("gr-aside");
+        aside.addEventListener("gr-aside-load", (e) => {
+            aside.routes = [
+                {
+                    title: "首页",
+                    desc: "HOME",
+                    hash: "Home"
+                },
+                {
+                    title: "新闻资讯",
+                    desc: "NEWS",
+                    hash: "News"
+                },
+                {
+                    title: "云端资料库",
+                    desc: "DATA",
+                    hash: "CloudDatabase"
+                },
+                {
+                    title: "主题影音",
+                    desc: "AUDIO&VIDEO",
+                    hash: "ThemeVideo"
+                },
+                {
+                    title: "游戏壁纸",
+                    desc: "PICTURE",
+                    hash: "GameWallpaper"
+                },
+                {
+                    title: "游戏衍生",
+                    desc: "OTHERS",
+                    hash: "Comics"
+                },
+                {
+                    title: "游戏特色",
+                    desc: "FEATURES",
+                    hash: "GameFeature"
+                },
+            ];
+        });
+
+    </script>
 </body>
 
 </html>

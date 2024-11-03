@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《战双帕弥什》官网——愿每一位重返地球的人类之子平安</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <gr-aside></gr-aside>
+    <aside class="gr-aside">
+        <ul>
+            <li data-page="Comics" class="ls-item">
+                <div>游戏衍生</div>
+                <span>OTHERS</span>
+            </li>
+            <li data-page="GameFeature" class="ls-item">
+                <div>游戏特色</div>
+                <span>FEATURES</span>
+            </li>
+        </ul>
+    </aside>
+
+
+    <script type="module">
+        import "./components/common/GrAside.js"
+
+        const aside = document.querySelector("gr-aside");
+
+        aside.addEventListener("gr-aside-load", (e) => {
+            aside.data = [
+                {
+                    title: "首页",
+                    desc: "HOME",
+                    hash: "Home"
+                },
+                {
+                    title: "新闻资讯",
+                    desc: "NEWS",
+                    hash: "News"
+                }
+            ];
+        });
+
+    </script>
+</body>
+
+</html>
