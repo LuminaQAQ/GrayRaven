@@ -6,40 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>《战双帕弥什》官网——愿每一位重返地球的人类之子平安</title>
     <link rel="stylesheet" href="./css/index.css">
+
+    <style>
+        .home-page {
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .home-page video {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 
 <body>
     <gr-aside></gr-aside>
-
-    <div id="mainContainer" class="main-container">
-        <div data-hash="Home" class="sg-page" style="background-image: url('./assets/imgs/home-bg.png');">
+    <gr-container>
+        <gr-page page="Home" class="home-page" style="background-image: url('./assets/imgs/home-bg.png');">
             <video src="./assets/videos/home-video.mp4" autoplay muted loop></video>
-        </div>
-
-        <div data-hash="News" class="sg-page">
+        </gr-page>
+        <gr-page page="News" class="home-page">
             <h1>News</h1>
-        </div>
-
-        <div data-hash="CloudDatabase" class="sg-page">
+        </gr-page>
+        <gr-page page="CloudDatabase">
             <h1>CloudDatabase</h1>
-        </div>
+        </gr-page>
 
-        <div data-hash="ThemeVideo" class="sg-page">
+        <gr-page page="ThemeVideo">
             <h1>ThemeVideo</h1>
-        </div>
+        </gr-page>
 
-        <div data-hash="GameWallpaper" class="sg-page">
+        <gr-page page="GameWallpaper">
             <h1>GameWallpaper</h1>
-        </div>
+        </gr-page>
 
-        <div data-hash="Comics" class="sg-page">
+        <gr-page page="Comics">
             <h1>Comics</h1>
-        </div>
+        </gr-page>
 
-        <div data-hash="GameFeature" class="sg-page">
+        <gr-page page="GameFeature">
             <h1>GameFeature</h1>
-        </div>
-    </div>
+        </gr-page>
+    </gr-container>
 
     <script type="module">
         import "./components/common/GrAside.js"
@@ -86,7 +97,10 @@
         });
 
     </script>
-    <script src="./js/index.js" defer></script>
+
+    <script type="module">
+        import "./components/common/GrContainer.js";
+    </script>
 </body>
 
 </html>
