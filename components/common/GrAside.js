@@ -141,9 +141,9 @@ class GrAside extends HTMLElement {
             window.addEventListener("touchend", (endE) => {
                 const index = this.#dataObj.routes.findIndex(item => item.hash === hash);
 
-                if (startPoint - endPoint > 0) {
+                if (startPoint - endPoint > 10) {
                     if (index < this.#dataObj.routes.length - 1) window.location.hash = this.#dataObj.routes[index + 1].hash;
-                } else {
+                } else if (startPoint - endPoint < -10) {
                     if (index > 0) window.location.hash = this.#dataObj.routes[index - 1].hash;
                 }
 
