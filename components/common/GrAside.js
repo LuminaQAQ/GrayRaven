@@ -95,6 +95,7 @@ class GrAside extends HTMLElement {
             this.#handleItemActive(items);
         })
 
+        this.#initDeafaultHash();
     }
     /**
      * 处理导航的激活状态
@@ -126,6 +127,8 @@ class GrAside extends HTMLElement {
 
     #initTouchEvent() {
         window.addEventListener("touchstart", (startE) => {
+            if (!this.#dataObj.routes) return;
+
             const hash = window.location.hash.substring(1);
             const controller = new AbortController();
             const startPoint = startE.touches[0].pageY;
@@ -149,12 +152,19 @@ class GrAside extends HTMLElement {
         });
     }
 
+    #initDeafaultHash() {
+        const hash = window.location.hash.substring(1);
+        if (this.#dataObj.routes.length < 1) return;
+
+        if (!hash || !this.#dataObj.routes.includes(hash)) window.location.hash = this.#dataObj.routes[0]?.hash;
+    }
+
     connectedCallback() {
+        this.#initTouchEvent();
+
         setTimeout(() => {
             this.dispatchEvent(new CustomEvent('gr-aside-load'));
         }, 0)
-
-        this.#initTouchEvent();
     }
 }
 
