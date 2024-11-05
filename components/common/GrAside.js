@@ -124,10 +124,37 @@ class GrAside extends HTMLElement {
         }
     }
 
+    #initTouchEvent() {
+        window.addEventListener("touchstart", (startE) => {
+            const hash = window.location.hash.substring(1);
+            const controller = new AbortController();
+            const startPoint = startE.touches[0].pageY;
+            let endPoint = startPoint;
+
+            window.addEventListener("touchmove", (moveE) => {
+                endPoint = moveE.touches[0].pageY;
+            }, { signal: controller.signal })
+
+            window.addEventListener("touchend", (endE) => {
+                const index = this.#dataObj.routes.findIndex(item => item.hash === hash);
+
+                if (startPoint - endPoint > 0) {
+                    if (index < this.#dataObj.routes.length - 1) window.location.hash = this.#dataObj.routes[index + 1].hash;
+                } else {
+                    if (index > 0) window.location.hash = this.#dataObj.routes[index - 1].hash;
+                }
+
+                controller.abort();
+            }, { signal: controller.signal })
+        });
+    }
+
     connectedCallback() {
         setTimeout(() => {
             this.dispatchEvent(new CustomEvent('gr-aside-load'));
         }, 0)
+
+        this.#initTouchEvent();
     }
 }
 
