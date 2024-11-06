@@ -2,6 +2,7 @@ import "./GrAsideItem.js"
 
 class GrAside extends HTMLElement {
     #dataObj = {
+        activePage: '',
         routes: [],
     }
 
@@ -52,6 +53,9 @@ class GrAside extends HTMLElement {
                 <ul></ul>
             </aside>
         `;
+
+        this._cursorEl = shadowRoot.querySelector(".cursor");
+        this._routesContainer = shadowRoot.querySelector("ul");
     }
 
     // ------- routes 路由导航列表 -------
@@ -62,7 +66,28 @@ class GrAside extends HTMLElement {
 
     set routes(routes) {
         this.#dataObj.routes = routes;
+        this.active = this.active || this.#dataObj.routes[0].hash;
+
         this.#renderNavList();
+    }
+    // #endregion
+    // ------- end -------
+
+    // ------- active -------
+    // #region
+    get active() {
+        return this.#dataObj.active;
+    }
+
+    set active(val) {
+        const index = this.#dataObj.routes.findIndex(item => item.hash === val)
+        if (index === -1) throw new Error("[GrAside] active: 值不存在路由列表中");
+
+        this.#dataObj.active = val;
+
+        this.shadowRoot.querySelectorAll("gr-aside-item").forEach(item => {
+            this.#handleIsActive(item, val, this._cursorEl);
+        });
     }
     // #endregion
     // ------- end -------
@@ -90,12 +115,12 @@ class GrAside extends HTMLElement {
             container.appendChild(li);
         })
 
-        const items = container.querySelectorAll("gr-aside-item");
-        window.addEventListener("hashchange", () => {
-            this.#handleItemActive(items);
-        })
+        // const items = container.querySelectorAll("gr-aside-item");
+        // window.addEventListener("hashchange", () => {
+        //     this.#handleItemActive(items);
+        // })
 
-        this.#initDeafaultHash();
+        // this.#initDeafaultHash();
     }
     /**
      * 处理导航的激活状态

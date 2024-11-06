@@ -25,13 +25,15 @@ class GrContainer extends HTMLElement {
     #handlePageChange() {
         const hash = window.location.hash.substring(1);
         const page = this.querySelector(`[page="${hash ? hash : "Home"}"]`);
+        console.log(this.children);
+
 
         if (page) this._container.style.transform = `translateY(${-page.offsetTop}px)`;
     }
 
     connectedCallback() {
         Array.from(this.childNodes).forEach((child, index) => {
-            if (child.tagName !== "GR-PAGE") child.remove();
+            if (child.tagName !== "GR-PAGE" && child.tagName !== "SLOT") child.remove();
             else child.index = index;
         });
 
