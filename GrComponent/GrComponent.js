@@ -7,6 +7,7 @@ class GrComponent extends HTMLElement {
         routes: [],
         curPage: "",
         isDone: true,
+        isHidden: false
     };
 
     constructor() {
@@ -18,15 +19,21 @@ class GrComponent extends HTMLElement {
             ${stylesheet}
             <div class="main-container">
                 <aside class="gr-aside">
-                    <div class="nav-bar-item">三</div>
+                    <div class="navigation-switch">三</div>
                     <div class="cursor"></div>
-                    <slot name="aside"></slot>
+                    <div class="aside-list">
+                        <slot name="aside"></slot>
+                    </div>
                 </aside>
                 <main class="gr-pages-container">
                     <slot name="pages"></slot>
                 </main>
             </div>
         `;
+
+        this._asideContainer = shadowRoot.querySelector(".gr-aside");
+        this._navigationSwitch = shadowRoot.querySelector(".navigation-switch");
+        this._asideListContainer = shadowRoot.querySelector(".aside-list");
     }
 
     // ------- active -------
@@ -88,7 +95,7 @@ class GrComponent extends HTMLElement {
      */
     #handleIsActive(item, hash, cursor) {
         item.active = hash === item.path;
-        if (hash === item.path) cursor.style.top = `${item.index * item.offsetHeight + item.offsetHeight * .75}px`;
+        if (hash === item.path) cursor.style.top = `${item.index * item.offsetHeight + item.offsetHeight / 2}px`;
     }
 
     /**
@@ -194,6 +201,11 @@ class GrComponent extends HTMLElement {
         this.#initTouchEvent();
         this.#initDeafaultHash();
         this.#initWheelEvent();
+
+        this._navigationSwitch.addEventListener("click", (e) => {
+            this.#options.isHidden = !this.#options.isHidden;
+            this._asideContainer.classList.toggle("is-hidden", this.#options.isHidden);
+        })
 
         this.active = this.active;
     }

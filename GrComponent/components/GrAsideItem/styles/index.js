@@ -6,6 +6,7 @@ export const stylesheet = `
     color: #fff;
     text-decoration: none;
     cursor: pointer;
+    border-left: 1px solid rgba(212, 212, 212, 0.7);
 }
 .ls-item .title {
     font-size: var(--fs-title);
