@@ -17,6 +17,12 @@ export const stylesheet = `
     filter: opacity(0);
     transition: filter 0.3s;
 }
+.ls-item .desc,
+.ls-item .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 .ls-item .desc::before, .ls-item .desc::after {
     content: "";
     display: inline-block;

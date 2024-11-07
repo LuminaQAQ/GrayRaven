@@ -10,17 +10,13 @@ export const stylesheet = `
         padding-inline-start: 0px;
         unicode-bidi: isolate;
     }
-    .nav-bar-item {
-        position: absolute;
-
-    }
     .main-container {
         overflow: hidden;
         position: relative;
     }
     .nav-bar-item {
         position: absolute;
-
+        top: 0;
     }
     .gr-aside {
         user-select: none;
