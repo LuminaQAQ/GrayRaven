@@ -17,8 +17,8 @@ class GrComponent extends HTMLElement {
         shadowRoot.innerHTML = `
             ${stylesheet}
             <div class="main-container">
-                <div class="nav-bar-item">三</div>
                 <aside class="gr-aside">
+                    <div class="nav-bar-item">三</div>
                     <div class="cursor"></div>
                     <slot name="aside"></slot>
                 </aside>
