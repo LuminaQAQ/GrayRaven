@@ -1,17 +1,12 @@
+import { stylesheet } from "./styles/index.js";
+
 class GrPage extends HTMLElement {
     constructor() {
         super();
 
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.innerHTML = `
-            <style>
-                .sg-page {
-                    position: relative;
-                    height: 100vh;
-
-                    overflow: hidden;
-                }
-            </style>
+            ${stylesheet}
             <div class="sg-page">
                 <slot></slot>
             </div >
