@@ -25,7 +25,7 @@ class GrContainer extends HTMLElement {
     #handlePageChange() {
         const hash = window.location.hash.substring(1);
         const page = this.querySelector(`[page="${hash ? hash : "Home"}"]`);
-        console.log(this.children);
+        // console.log(this.children);
 
 
         if (page) this._container.style.transform = `translateY(${-page.offsetTop}px)`;
