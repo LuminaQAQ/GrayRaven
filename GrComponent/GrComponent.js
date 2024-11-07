@@ -1,6 +1,6 @@
 import "./components/GrAsideItem/index.js";
 import "./components/GrPage/index.js"
-import { stylesheet } from "./style.js";
+import { stylesheet } from "./style/index.js";
 
 class GrComponent extends HTMLElement {
     #options = {
@@ -17,6 +17,7 @@ class GrComponent extends HTMLElement {
         shadowRoot.innerHTML = `
             ${stylesheet}
             <div class="main-container">
+                <div class="nav-bar-item">三</div>
                 <aside class="gr-aside">
                     <div class="cursor"></div>
                     <slot name="aside"></slot>
@@ -118,7 +119,7 @@ class GrComponent extends HTMLElement {
 
 
             Array.from(asideContainer.children).forEach((child, i) => {
-                this.#handleItemActive(asideContainer.children, pagesContainer, cursor);
+                this.active = path;
             })
         })
 
@@ -127,7 +128,7 @@ class GrComponent extends HTMLElement {
         })
 
         window.addEventListener("hashchange", () => {
-            this.#handleItemActive(asideContainer.children, pagesContainer, cursor);
+            this.active = window.location.hash.substring(1);
         })
     }
 
