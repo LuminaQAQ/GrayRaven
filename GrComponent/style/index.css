@@ -14,6 +14,7 @@
   position: relative;
 }
 .main-container .gr-aside {
+  position: relative;
   user-select: none;
   display: block;
   position: fixed;
@@ -31,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(-100%);
+  transform: translateY(-200%);
   transition: transform 0.3s;
   z-index: 1;
 }
@@ -54,6 +55,7 @@
   transition: transform 0.3s;
 }
 .main-container .gr-aside ::slotted(*) {
+  display: block;
   position: relative;
   padding: 1rem 0;
   padding-left: 1.25rem;
@@ -63,12 +65,13 @@
   transform: translate(-150%, -50%);
 }
 .main-container .gr-aside.is-hidden .navigation-switch {
-  transform: translateY(-100%) rotate(90deg);
+  transform: translateY(-200%) rotate(90deg);
 }
 .main-container .gr-aside.is-hidden .aside-list {
   transform: translate(-150%, -50%);
 }
 .main-container .gr-pages-container ::slotted(*) {
+  display: block;
   transform-origin: center top;
   transition: transform 0.5s;
 }

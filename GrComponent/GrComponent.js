@@ -122,8 +122,8 @@ class GrComponent extends HTMLElement {
             this.#options.isDone = false;
 
             const itemIndex = Array.from(pagesContainer.children).findIndex(item => item.path === path);
+            if (!pagesContainer.children[itemIndex]) throw new Error("[gr-component] 没有匹配该路径的页面！");
             pagesContainer.style.transform = `translateY(${-pagesContainer.children[itemIndex].offsetTop}px)`;
-
 
             Array.from(asideContainer.children).forEach((child, i) => {
                 this.active = path;
@@ -189,6 +189,11 @@ class GrComponent extends HTMLElement {
         })
     }
 
+    #initNavigationSwitchPosi() {
+        const listHeight = this._asideListContainer.offsetHeight;
+        this._navigationSwitch.style.top = `${-listHeight * .5}px`
+    }
+
     #initDeafaultHash() {
         const hash = window.location.hash.substring(1);
         if (this.#options.routes.length < 1) return;
@@ -201,6 +206,7 @@ class GrComponent extends HTMLElement {
         this.#initTouchEvent();
         this.#initDeafaultHash();
         this.#initWheelEvent();
+        this.#initNavigationSwitchPosi();
 
         this._navigationSwitch.addEventListener("click", (e) => {
             this.#options.isHidden = !this.#options.isHidden;

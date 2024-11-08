@@ -14,6 +14,7 @@
   position: relative;
 
   .gr-aside {
+    position: relative;
     user-select: none;
     display: block;
     position: fixed;
@@ -34,7 +35,7 @@
       align-items: center;
       justify-content: center;
 
-      transform: translateY(-100%);
+      transform: translateY(-200%);
       transition: transform 0.3s;
 
       z-index: 1;
@@ -68,6 +69,7 @@
     }
 
     ::slotted(*) {
+      display: block;
       position: relative;
       padding: 1rem 0;
       padding-left: 1.25rem;
@@ -80,7 +82,7 @@
       }
 
       .navigation-switch {
-        transform: translateY(-100%) rotate(90deg);
+        transform: translateY(-200%) rotate(90deg);
       }
 
       .aside-list {
@@ -91,6 +93,7 @@
 
   .gr-pages-container {
     ::slotted(*) {
+      display: block;
       transform-origin: center top;
       transition: transform 0.5s;
     }
