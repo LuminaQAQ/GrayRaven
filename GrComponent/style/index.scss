@@ -57,6 +57,7 @@
 
     .aside-list {
       position: absolute;
+      transform: translateY(-50%);
       background-image: linear-gradient(
         to right,
         rgba(0, 0, 0, 0.4),
@@ -68,6 +69,7 @@
 
     ::slotted(*) {
       position: relative;
+      padding: 1rem 0;
       padding-left: 1.25rem;
     }
 
@@ -82,7 +84,7 @@
       }
 
       .aside-list {
-        transform: translateX(-150%);
+        transform: translate(-150%, -50%);
       }
     }
   }

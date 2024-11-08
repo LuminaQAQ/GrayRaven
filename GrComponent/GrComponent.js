@@ -95,7 +95,7 @@ class GrComponent extends HTMLElement {
      */
     #handleIsActive(item, hash, cursor) {
         item.active = hash === item.path;
-        if (hash === item.path) cursor.style.top = `${item.index * item.offsetHeight + item.offsetHeight / 2}px`;
+        if (hash === item.path) cursor.style.top = `${item.index * item.offsetHeight - item.offsetHeight / 2}px`;
     }
 
     /**

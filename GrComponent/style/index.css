@@ -49,11 +49,13 @@
 }
 .main-container .gr-aside .aside-list {
   position: absolute;
+  transform: translateY(-50%);
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), transparent);
   transition: transform 0.3s;
 }
 .main-container .gr-aside ::slotted(*) {
   position: relative;
+  padding: 1rem 0;
   padding-left: 1.25rem;
 }
 .main-container .gr-aside.is-hidden .cursor {
@@ -64,7 +66,7 @@
   transform: translateY(-100%) rotate(90deg);
 }
 .main-container .gr-aside.is-hidden .aside-list {
-  transform: translateX(-150%);
+  transform: translate(-150%, -50%);
 }
 .main-container .gr-pages-container ::slotted(*) {
   transform-origin: center top;
