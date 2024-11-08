@@ -17,15 +17,15 @@ class GrComponent extends HTMLElement {
 
         shadowRoot.innerHTML = `
             ${stylesheet}
-            <div class="main-container">
-                <aside class="gr-aside">
-                    <div class="navigation-switch">三</div>
-                    <div class="cursor"></div>
-                    <div class="aside-list">
+            <div class="main-container" part="main-container">
+                <aside class="gr-aside" part="aside-wrap">
+                    <div class="navigation-switch" part="switch-btn"></div>
+                    <div class="cursor" part="cursor"></div>
+                    <div class="aside-list" part="user-aside-wrap">
                         <slot name="aside"></slot>
                     </div>
                 </aside>
-                <main class="gr-pages-container">
+                <main class="gr-pages-container" part="user-pages-wrap">
                     <slot name="pages"></slot>
                 </main>
             </div>

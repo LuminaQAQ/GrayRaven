@@ -39,6 +39,9 @@
       transition: transform 0.3s;
 
       z-index: 1;
+
+      background-image: linear-gradient(to bottom, rgb(193, 193, 193) 50%, transparent 50%);
+      background-size: 8px 8px;
     }
 
     .cursor {
