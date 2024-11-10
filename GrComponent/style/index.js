@@ -28,6 +28,7 @@ export const stylesheet = `
   z-index: 999;
 }
 .main-container .gr-aside .navigation-switch {
+  cursor: pointer;
   position: absolute;
   top: 0;
   left: 0.5rem;
@@ -78,6 +79,7 @@ export const stylesheet = `
 }
 .main-container .gr-pages-container ::slotted(*) {
   display: block;
+  transform: translateY(0);
   transform-origin: center top;
   transition: transform 0.5s;
 }

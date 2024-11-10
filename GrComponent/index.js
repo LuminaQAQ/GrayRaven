@@ -31,6 +31,7 @@ class GrComponent extends HTMLElement {
             </div>
         `;
 
+        this._cursor = shadowRoot.querySelector(".cursor");
         this._asideContainer = shadowRoot.querySelector(".gr-aside");
         this._navigationSwitch = shadowRoot.querySelector(".navigation-switch");
         this._asideListContainer = shadowRoot.querySelector(".aside-list");
@@ -47,8 +48,7 @@ class GrComponent extends HTMLElement {
 
         const asideContainer = this.querySelector("[slot='aside']") || [];
         const pagesContainer = this.querySelector("[slot='pages']") || [];
-        const cursor = this.shadowRoot.querySelector(".cursor");
-        this.#handleItemActive(asideContainer.children, pagesContainer, cursor);
+        this.#handleItemActive(asideContainer.children, pagesContainer, this._cursor);
     }
     // #endregion
     // ------- end -------
@@ -79,8 +79,7 @@ class GrComponent extends HTMLElement {
     #handleItemActive(items, pagesContainer, cursor) {
         const hash = window.location.hash.substring(1);
 
-        const itemIndex = Array.from(pagesContainer.children).findIndex(item => item.path === hash);
-        pagesContainer.style.transform = `translateY(${-pagesContainer.children[itemIndex > -1 ? itemIndex : 0].offsetTop}px)`;
+        this.#handlePageMove(pagesContainer, hash);
 
         Array.from(items).forEach(item => {
             this.#handleIsActive(item, hash, cursor);
@@ -121,9 +120,7 @@ class GrComponent extends HTMLElement {
             window.location.hash = path;
             this.#options.isDone = false;
 
-            const itemIndex = Array.from(pagesContainer.children).findIndex(item => item.path === path);
-            if (!pagesContainer.children[itemIndex]) throw new Error("[gr-component] 没有匹配该路径的页面！");
-            pagesContainer.style.transform = `translateY(${-pagesContainer.children[itemIndex].offsetTop}px)`;
+            this.#handlePageMove(pagesContainer, path);
 
             Array.from(asideContainer.children).forEach((child, i) => {
                 this.active = path;
@@ -137,6 +134,12 @@ class GrComponent extends HTMLElement {
         window.addEventListener("hashchange", () => {
             this.active = window.location.hash.substring(1);
         })
+    }
+
+    #handlePageMove(pagesContainer, path) {
+        const itemIndex = Array.from(pagesContainer.children).findIndex(item => item.path === path);
+        if (!pagesContainer.children[itemIndex]) throw new Error("[gr-component] 没有匹配该路径的页面！");
+        pagesContainer.style.transform = `translateY(${pagesContainer.children[itemIndex].offsetTop}px)`;
     }
 
     /**
@@ -188,12 +191,18 @@ class GrComponent extends HTMLElement {
             }
         })
     }
-
+    /**
+     * 初始化侧边栏切换按钮的位置
+     */
     #initNavigationSwitchPosi() {
         const listHeight = this._asideListContainer.offsetHeight;
         this._navigationSwitch.style.top = `${-listHeight * .5}px`
     }
 
+    /**
+     * 当 `hash` 值为空时， 设置默认的 `hash` 值
+     * @returns void
+     */
     #initDeafaultHash() {
         const hash = window.location.hash.substring(1);
         if (this.#options.routes.length < 1) return;
@@ -201,19 +210,54 @@ class GrComponent extends HTMLElement {
         if (!hash || !this.#options.routes.includes(hash)) window.location.hash = this.#options.routes[0];
     }
 
-    connectedCallback() {
-        this.#initAsideItemClickEvent();
-        this.#initTouchEvent();
-        this.#initDeafaultHash();
-        this.#initWheelEvent();
-        this.#initNavigationSwitchPosi();
+    #init() {
+        const controller = new AbortController();
 
-        this._navigationSwitch.addEventListener("click", (e) => {
-            this.#options.isHidden = !this.#options.isHidden;
-            this._asideContainer.classList.toggle("is-hidden", this.#options.isHidden);
+        const pageLoadedListren = new Promise(resolve => {
+            this.addEventListener("gr-page-loaded", e => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+
+                resolve(true);
+            }, { signal: controller.signal })
+        });
+
+        const asideLoadedListren = new Promise(resolve => {
+            this.addEventListener("gr-aside-item-loaded", e => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+
+                resolve(true);
+            }, { signal: controller.signal })
+        });
+
+        Promise.all([pageLoadedListren, asideLoadedListren]).then(() => {
+            controller.abort();
+
+            this.#initAsideItemClickEvent();
+            this.#initTouchEvent();
+            this.#initDeafaultHash();
+            this.#initWheelEvent();
+            this.#initNavigationSwitchPosi();
+
+            this._navigationSwitch.addEventListener("click", (e) => {
+                this.#options.isHidden = !this.#options.isHidden;
+                this._asideContainer.classList.toggle("is-hidden", this.#options.isHidden);
+            })
+
+            this.active = this.active;
         })
+    }
 
-        this.active = this.active;
+    connectedCallback() {
+        this.#init();
+        // this.#initAsideItemClickEvent();
+        // this.#initTouchEvent();
+        // this.#initDeafaultHash();
+        // this.#initWheelEvent();
+        // this.#initNavigationSwitchPosi();
     }
 }
 

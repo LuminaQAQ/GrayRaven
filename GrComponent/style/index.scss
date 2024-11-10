@@ -24,6 +24,7 @@
     z-index: 999;
 
     .navigation-switch {
+      cursor: pointer;
       position: absolute;
       top: 0;
       left: 0.5rem;
@@ -40,7 +41,11 @@
 
       z-index: 1;
 
-      background-image: linear-gradient(to bottom, rgb(193, 193, 193) 50%, transparent 50%);
+      background-image: linear-gradient(
+        to bottom,
+        rgb(193, 193, 193) 50%,
+        transparent 50%
+      );
       background-size: 8px 8px;
     }
 
@@ -97,6 +102,7 @@
   .gr-pages-container {
     ::slotted(*) {
       display: block;
+      transform: translateY(0);
       transform-origin: center top;
       transition: transform 0.5s;
     }

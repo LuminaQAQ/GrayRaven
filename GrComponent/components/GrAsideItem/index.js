@@ -82,6 +82,17 @@ class GrAsideItem extends HTMLElement {
         }
       }));
     })
+
+
+    setTimeout(() => {
+      this.dispatchEvent(new CustomEvent("gr-aside-item-loaded", {
+        bubbles: true,
+        composed: true,
+        detail: {
+          path: this.path,
+        }
+      }));
+    }, 20);
   }
 }
 

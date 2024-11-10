@@ -27,6 +27,16 @@ class GrPage extends HTMLElement {
 
     connectedCallback() {
         this.style.display = "block";
+
+        setTimeout(() => {
+            this.dispatchEvent(new CustomEvent("gr-page-loaded", {
+                bubbles: true,
+                composed: true,
+                detail: {
+                    path: this.path
+                }
+            }));
+        }, 20);
     }
 }
 
