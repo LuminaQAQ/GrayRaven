@@ -7,7 +7,7 @@ class GrPage extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.innerHTML = `
             ${stylesheet}
-            <div class="sg-page">
+            <div class="sg-page" part="container">
                 <slot></slot>
             </div >
         `;

@@ -7,9 +7,9 @@ class GrAsideItem extends HTMLElement {
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.innerHTML = `
       ${stylesheet}
-      <li class="ls-item">
-          <div class="title"></div>
-          <span class="desc"></span>
+      <li class="ls-item" part="container">
+          <div class="title" part="title"></div>
+          <span class="desc" part="desc"></span>
       </li>
     `;
 
