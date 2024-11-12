@@ -249,9 +249,17 @@ class GrComponent extends HTMLElement {
             this._navigationSwitch.addEventListener("click", (e) => {
                 this.#options.isHidden = !this.#options.isHidden;
                 this._asideContainer.classList.toggle("is-hidden", this.#options.isHidden);
+
+                this.dispatchEvent(new CustomEvent("gr-aside-toggle", {
+                    detail: {
+                        isHide: !this.#options.isHidden
+                    }
+                }));
             })
 
             this.active = this.active;
+
+            this.dispatchEvent(new CustomEvent("gr-component-load"));
         })
     }
 

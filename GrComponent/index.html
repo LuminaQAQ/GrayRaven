@@ -17,7 +17,6 @@
 </head>
 
 <body>
-    <script type="module" src="./index.js"></script>
     <gr-component>
         <ul slot="aside">
             <gr-aside-item path="Home" title="首页" desc="HOME"></gr-aside-item>
@@ -28,6 +27,19 @@
             <gr-page path="Home">Home</gr-page>
         </div>
     </gr-component>
+
+    <script type="module">
+        import "./index.js"
+
+        const gc = document.querySelector("gr-component");
+        gc.addEventListener("gr-component-load", e => {
+            console.log("gr-component is load");
+        });
+
+        gc.addEventListener("gr-aside-toggle", e => {
+            console.log(e.detail);
+        });
+    </script>
 </body>
 
 </html>
