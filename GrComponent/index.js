@@ -136,7 +136,7 @@ class GrComponent extends HTMLElement {
         })
     }
     /**
-     * 
+     * 操作页面滚动
      * @param {HTMLElement} pagesContainer 
      * @param {String} path 
      */
