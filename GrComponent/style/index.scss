@@ -100,6 +100,12 @@
   }
 
   .gr-pages-container {
+    position: relative;
+
+    slot {
+      position: relative;
+    }
+
     ::slotted(*) {
       display: block;
       transform: translateY(0);

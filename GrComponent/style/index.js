@@ -77,6 +77,12 @@ export const stylesheet = `
 .main-container .gr-aside.is-hidden .aside-list {
   transform: translate(-150%, -50%);
 }
+.main-container .gr-pages-container {
+  position: relative;
+}
+.main-container .gr-pages-container slot {
+  position: relative;
+}
 .main-container .gr-pages-container ::slotted(*) {
   display: block;
   transform: translateY(0);

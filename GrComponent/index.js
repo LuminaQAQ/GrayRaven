@@ -135,11 +135,15 @@ class GrComponent extends HTMLElement {
             this.active = window.location.hash.substring(1);
         })
     }
-
+    /**
+     * 
+     * @param {HTMLElement} pagesContainer 
+     * @param {String} path 
+     */
     #handlePageMove(pagesContainer, path) {
         const itemIndex = Array.from(pagesContainer.children).findIndex(item => item.path === path);
         if (!pagesContainer.children[itemIndex]) throw new Error("[gr-component] 没有匹配该路径的页面！");
-        pagesContainer.style.transform = `translateY(${pagesContainer.children[itemIndex].offsetTop}px)`;
+        pagesContainer.style.transform = `translateY(-${pagesContainer.children[itemIndex].offsetTop}px)`;
     }
 
     /**
@@ -252,12 +256,8 @@ class GrComponent extends HTMLElement {
     }
 
     connectedCallback() {
+        this.style.position = "relative";
         this.#init();
-        // this.#initAsideItemClickEvent();
-        // this.#initTouchEvent();
-        // this.#initDeafaultHash();
-        // this.#initWheelEvent();
-        // this.#initNavigationSwitchPosi();
     }
 }
 
