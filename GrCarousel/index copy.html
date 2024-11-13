@@ -5,64 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .main-container {
-            width: 100%;
-            height: 10rem;
-
-            display: flex;
-            overflow: hidden;
-
-            background-color: aquamarine;
-
-            .carousel-item {
-                width: 100%;
-                flex: 1 0 100%;
-            }
-        }
-    </style>
-    <!-- <link rel="stylesheet" href="./style/index.css"> -->
+    <link rel="stylesheet" href="./style/index.css">
 </head>
 
 <body>
 
     <section class="main-container" part="container">
-        <section class="carousel-item">1</section>
-        <section class="carousel-item">2</section>
-        <section class="carousel-item">3</section>
+        <header class="statistics-wrap">
+            <span class="current-index" part="current-index">02</span>/
+            <span class="total-index" part="total-index">03</span>//
+        </header>
+        <ul class="carousel-wrap" part="carousel-wrap">
+            <li class="carousel-item">1</li>
+            <li class="carousel-item">2</li>
+            <li class="carousel-item">3</li>
+        </ul>
+        <footer class="footer-wrap" part="footer-wrap">
+            <div class="cursors-wrap" part="cursors-wrap">
+                <span class="carousel-cursor-item active"></span>
+                <span class="carousel-cursor-item"></span>
+                <span class="carousel-cursor-item"></span>
+            </div>
+        </footer>
     </section>
 
     <script type="module">
         import "./index.js"
 
         let index = 0;
-
-        const container = document.querySelector(".main-container");
+        const carouselWrap = document.querySelector(".carousel-wrap");
         const items = document.querySelectorAll(".carousel-item");
-        const cursors = document.querySelectorAll(".carousel-cursor-item");
 
-        const prevEl = items[items.length - 1].cloneNode(true);
-        items[items.length - 1].remove();
-        container.insertBefore(prevEl, container.firstChild);
-        // container.style.transform = `translateX(-100%)`;
+        setInterval(() => {
+            index = (index + 1) % (items.length + 1);
 
-        container.addEventListener("mousedown", e => {
-            const controller = new AbortController();
+            if (index === items.length) {
+                items[0].style.translate = `${index * 100}%`;
+            }
 
-            const starPoint = e.clientX;
-            let endPoint;
+            if (index === 0) {
+                items[items.length - 1].style.translate = `${-(items.length - 1) * 100}%`;
+            }
 
-            console.log(e);
+            carouselWrap.style.translate = `${-index * 100}%`;
 
+            carouselWrap.addEventListener("transitionend", () => {
+                carouselWrap.style.transitionDuration = `0s`;
+                if (index === items.length) {
+                    index = 0;
+                    items[0].style.translate = `0%`;
+                    carouselWrap.style.translate = `${-index * 100}%`;
+                }
 
-            container.addEventListener("mousemove", moveE => {
-                container.style.transform = `translateX(${starPoint - moveE.clientX}px)`;
-            }, { signal: controller.signal })
+                setTimeout(() => {
+                    carouselWrap.style.transitionDuration = `.3s`;
+                }, 10);
+            })
+        }, 3000);
 
-            container.addEventListener("mouseup", () => {
-                controller.abort();
-            }, { signal: controller.signal })
-        })
     </script>
 </body>
 
