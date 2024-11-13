@@ -15,6 +15,8 @@ body {
 
   margin: 0;
   padding: 0;
+
+  user-select: none;
 }
 
 .main-container {
@@ -25,7 +27,7 @@ body {
     @include clear-ul-default-style;
 
     display: flex;
-    transition: transform 0.3s;
+    transition: translate 0.3s;
 
     .carousel-item {
       flex: 1 0 100%;
@@ -53,6 +55,10 @@ body {
         margin: 0.5rem;
 
         background-color: #99a9bf;
+
+        &.active {
+          border: 1px solid red;
+        }
       }
     }
   }

@@ -4,6 +4,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
 .main-container {
@@ -19,7 +20,7 @@ body {
   padding-inline-start: 0px;
   unicode-bidi: isolate;
   display: flex;
-  transition: transform 0.3s;
+  transition: translate 0.3s;
 }
 .main-container .carousel-wrap .carousel-item {
   flex: 1 0 100%;
@@ -40,4 +41,7 @@ body {
   height: 1rem;
   margin: 0.5rem;
   background-color: #99a9bf;
+}
+.main-container .footer-wrap .cursors-wrap .carousel-cursor-item.active {
+  border: 1px solid red;
 }
