@@ -23,9 +23,7 @@ class GrCarousel extends HTMLElement {
                 </ul>
                 <footer class="footer-wrap" part="footer-wrap">
                     <div class="indicator-wrap" part="indicator-wrap">
-                        <span class="carousel-indicator-item active"></span>
-                        <span class="carousel-indicator-item"></span>
-                        <span class="carousel-indicator-item"></span>
+                    
                     </div>
                 </footer>
             </section>
@@ -87,17 +85,20 @@ class GrCarousel extends HTMLElement {
      * 初始化 `轮播图指示器` 元素
      */
     #initIndicator() {
-        const indicators = this._indicatorWrap.children;
-
-        Array.from(indicators).forEach((indicator, index) => {
-            indicator.index = index + 1;
+        for (let i = 0; i < this.#state.ITEM_LEN - 2; i++) {
+            const indicator = document.createElement("span");
+            indicator.index = i + 1;
+            indicator.className = "carousel-indicator-item";
+            indicator.classList.toggle("active", this.#state.index === i + 1);
 
             indicator.addEventListener("click", () => {
                 this.#state.index = indicator.index;
                 this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
                 this.#handleIndicatorActive();
             })
-        })
+
+            this._indicatorWrap.appendChild(indicator);
+        }
     }
 
     /**
@@ -115,38 +116,72 @@ class GrCarousel extends HTMLElement {
         this._currentIndex.innerHTML = `0${this.#state.index}`;
     }
 
+    #onTransitionEndCallback() {
+        this._carouselWrap.style.transitionDuration = "0s";
+
+        if (this.#state.index === this.#state.ITEM_LEN - 1) {
+            this.#state.index = 1;
+            this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
+        }
+
+        if (this.#state.index === 0) {
+            this.#state.index = this.#state.ITEM_LEN - 2;
+            this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
+        }
+
+        this.#handleIndicatorActive();
+        this.#handleStatistics();
+
+        setTimeout(() => {
+            this._carouselWrap.style.transitionDuration = ".3s";
+        }, 0);
+    }
+
+    #handleTimerClear() {
+        if (this.#state.timer) clearInterval(this.#state.timer);
+    }
+
+    #handleAutoPlay() {
+        this.#state.timer = setInterval(() => {
+            this.#next();
+        }, this.duration);
+    }
+
     connectedCallback() {
         this.duration = this.duration;
+
         this.#initCarouselItem();
         this.#initIndicator();
-
+        this.#handleStatistics();
         this._totalIndex.innerHTML = `0${this.#state.ITEM_LEN - 2}`;
 
-        this._carouselWrap.addEventListener("transitionend", () => {
-            this._carouselWrap.style.transitionDuration = "0s";
+        const callback = () => {
+            this.#onTransitionEndCallback();
+        }
+        this._carouselWrap.addEventListener("transitionend", callback)
 
-            if (this.#state.index === this.#state.ITEM_LEN - 1) {
-                this.#state.index = 1;
-                this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
-            }
+        this._carouselWrap.addEventListener("touchstart", startEvent => {
+            const controller = new AbortController();
+            const startPoint = startEvent.touches[0].clientX;
+            let endPoint = null;
+            this.#handleTimerClear();
 
-            if (this.#state.index === 0) {
-                this.#state.index = this.#state.ITEM_LEN - 2;
-                this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
-            }
+            this._carouselWrap.addEventListener("touchmove", moveEvent => {
+                endPoint = moveEvent.touches[0].clientX;
+            }, { signal: controller.signal })
 
-            this.#handleIndicatorActive();
-            this.#handleStatistics();
+            this._carouselWrap.addEventListener("touchend", () => {
+                if (startPoint < endPoint) this.#prev();
+                else if (startPoint > endPoint) this.#next();
+                else this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
 
-            setTimeout(() => {
-                this._carouselWrap.style.transitionDuration = ".3s";
-            }, 0);
+                this.#handleAutoPlay();
+
+                controller.abort();
+            }, { signal: controller.signal })
         })
 
-        setInterval(() => {
-            this.#next();
-            // this.#prev();
-        }, this.duration);
+        this.#handleAutoPlay();
     }
 }
 
