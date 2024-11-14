@@ -95,6 +95,8 @@ class GrCarousel extends HTMLElement {
                 this.#state.index = indicator.index;
                 this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
                 this.#handleIndicatorActive();
+                this.#handleTimerClear();
+                this.#handleAutoPlay();
             })
 
             this._indicatorWrap.appendChild(indicator);
@@ -112,10 +114,16 @@ class GrCarousel extends HTMLElement {
         })
     }
 
+    /**
+     * 处理总共的 `指示器` 个数统计
+     */
     #handleStatistics() {
         this._currentIndex.innerHTML = `0${this.#state.index}`;
     }
 
+    /**
+     * 处理过渡结束时的操作
+     */
     #onTransitionEndCallback() {
         this._carouselWrap.style.transitionDuration = "0s";
 
@@ -137,14 +145,90 @@ class GrCarousel extends HTMLElement {
         }, 0);
     }
 
+    /**
+     * 清除轮播图自动播放
+     */
     #handleTimerClear() {
         if (this.#state.timer) clearInterval(this.#state.timer);
     }
 
+    /**
+     * 处理轮播图自动播放
+     */
     #handleAutoPlay() {
         this.#state.timer = setInterval(() => {
             this.#next();
         }, this.duration);
+    }
+
+    /**
+     * 手指拖动时，移动轮播图
+     * @param {TouchEvent} startEvent 触摸事件的Event
+     */
+    #touchEvent(startEvent) {
+        const controller = new AbortController();
+        const startPoint = startEvent.touches[0].clientX;
+        let endPoint = null;
+        this.#handleTimerClear();
+
+        this._carouselWrap.addEventListener("touchmove", moveEvent => {
+            endPoint = moveEvent.touches[0].clientX;
+        }, { signal: controller.signal })
+
+        this._carouselWrap.addEventListener("touchend", () => {
+            if (startPoint < endPoint) this.#prev();
+            else if (startPoint > endPoint) this.#next();
+            else this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
+
+            this.#handleAutoPlay();
+
+            controller.abort();
+        }, { signal: controller.signal })
+    }
+
+    /**
+     * 鼠标拖动时，移动轮播图
+     * @param {MouseEvent} startEvent 拖动事件的Event
+     */
+    #mouseDragEvent(startEvent) {
+        const controller = new AbortController();
+        const startPoint = startEvent.clientX;
+        let endPoint = null;
+        this.#handleTimerClear();
+
+        this._carouselWrap.addEventListener("mousemove", moveEvent => {
+            endPoint = moveEvent.clientX;
+        }, { signal: controller.signal })
+
+        this._carouselWrap.addEventListener("mouseup", () => {
+            if (startPoint < endPoint) this.#prev();
+            else if (startPoint > endPoint) this.#next();
+            else this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
+
+            this.#handleAutoPlay();
+
+            controller.abort();
+        }, { signal: controller.signal })
+    }
+
+    /**
+     * 初始化 `点击`､ `鼠标拖动` 和 `触摸拖动`
+     */
+    #initEvents() {
+        const transitionendCallback = () => {
+            this.#onTransitionEndCallback();
+        }
+        this._carouselWrap.addEventListener("transitionend", transitionendCallback);
+
+        const touchCallback = (startEvent) => {
+            this.#touchEvent(startEvent);
+        }
+        this._carouselWrap.addEventListener("touchstart", touchCallback);
+
+        const mouseCallback = (startEvent) => {
+            this.#mouseDragEvent(startEvent);
+        }
+        this._carouselWrap.addEventListener("mousedown", mouseCallback);
     }
 
     connectedCallback() {
@@ -155,31 +239,7 @@ class GrCarousel extends HTMLElement {
         this.#handleStatistics();
         this._totalIndex.innerHTML = `0${this.#state.ITEM_LEN - 2}`;
 
-        const callback = () => {
-            this.#onTransitionEndCallback();
-        }
-        this._carouselWrap.addEventListener("transitionend", callback)
-
-        this._carouselWrap.addEventListener("touchstart", startEvent => {
-            const controller = new AbortController();
-            const startPoint = startEvent.touches[0].clientX;
-            let endPoint = null;
-            this.#handleTimerClear();
-
-            this._carouselWrap.addEventListener("touchmove", moveEvent => {
-                endPoint = moveEvent.touches[0].clientX;
-            }, { signal: controller.signal })
-
-            this._carouselWrap.addEventListener("touchend", () => {
-                if (startPoint < endPoint) this.#prev();
-                else if (startPoint > endPoint) this.#next();
-                else this._carouselWrap.style.transform = `translateX(${-this.#state.index * 100}%)`;
-
-                this.#handleAutoPlay();
-
-                controller.abort();
-            }, { signal: controller.signal })
-        })
+        this.#initEvents();
 
         this.#handleAutoPlay();
     }
