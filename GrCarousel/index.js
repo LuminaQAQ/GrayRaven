@@ -33,6 +33,8 @@ class GrCarousel extends HTMLElement {
 
         this._carouselWrap = shadowRoot.querySelector(".carousel-wrap");
         this._indicatorWrap = shadowRoot.querySelector(".indicator-wrap");
+        this._currentIndex = shadowRoot.querySelector(".current-index");
+        this._totalIndex = shadowRoot.querySelector(".total-index");
     }
 
     // ------- duration -------
@@ -109,10 +111,16 @@ class GrCarousel extends HTMLElement {
         })
     }
 
+    #handleStatistics() {
+        this._currentIndex.innerHTML = `0${this.#state.index}`;
+    }
+
     connectedCallback() {
         this.duration = this.duration;
         this.#initCarouselItem();
         this.#initIndicator();
+
+        this._totalIndex.innerHTML = `0${this.#state.ITEM_LEN - 2}`;
 
         this._carouselWrap.addEventListener("transitionend", () => {
             this._carouselWrap.style.transitionDuration = "0s";
@@ -128,6 +136,7 @@ class GrCarousel extends HTMLElement {
             }
 
             this.#handleIndicatorActive();
+            this.#handleStatistics();
 
             setTimeout(() => {
                 this._carouselWrap.style.transitionDuration = ".3s";
