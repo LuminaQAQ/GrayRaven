@@ -1,3 +1,5 @@
+import "./components/GrCarouselItem/index.js"
+
 class GrCarousel extends HTMLElement {
     #state = {
         ITEM_LEN: 0,
@@ -12,19 +14,17 @@ class GrCarousel extends HTMLElement {
         shadowRoot.innerHTML = `
             <link rel="stylesheet" href="./style/index.css">
             <section class="main-container" part="container">
-                <header class="statistics-wrap">
-                    <span class="current-index" part="current-index">02</span>/
-                    <span class="total-index" part="total-index">03</span>//
+                <header class="statistics-wrap" part="statistics-wrap">
+                    <span class="current-index" part="current-index"></span>
+                    <span>/</span>
+                    <span class="total-index" part="total-index"></span>
+                    <span>//</span>
                 </header>
                 <ul class="carousel-wrap" part="carousel-wrap">
-                    <li class="carousel-item">1</li>
-                    <li class="carousel-item">2</li>
-                    <li class="carousel-item">3</li>
+                    <slot></slot>
                 </ul>
                 <footer class="footer-wrap" part="footer-wrap">
-                    <div class="indicator-wrap" part="indicator-wrap">
-                    
-                    </div>
+                    <div class="indicator-wrap" part="indicator-wrap"></div>
                 </footer>
             </section>
         `;
@@ -39,11 +39,11 @@ class GrCarousel extends HTMLElement {
     // #region
     get duration() {
         const val = this.getAttribute("duration");
-        return Number.isNaN(Number(val)) ? 1000 : Number(val) || 1000;
+        return Number.isNaN(Number(val)) ? 4000 : Number(val) || 4000;
     }
 
     set duration(val) {
-        val = Number.isNaN(Number(val)) ? 1000 : Number(val) || 1000;
+        val = Number.isNaN(Number(val)) ? 4000 : Number(val) || 4000;
 
         this.setAttribute("duration", val);
     }
@@ -54,12 +54,12 @@ class GrCarousel extends HTMLElement {
      * 初始化 `轮播图元素` 结构
      */
     #initCarouselItem() {
-        const children = this._carouselWrap.children;
+        const children = this.children;
         const firstChild = children[0].cloneNode(true);
         const lastChild = children[children.length - 1].cloneNode(true);
 
-        this._carouselWrap.insertBefore(lastChild, this._carouselWrap.firstChild);
-        this._carouselWrap.appendChild(firstChild);
+        this.insertBefore(lastChild, this.firstChild);
+        this.appendChild(firstChild);
 
         this.#state.ITEM_LEN = children.length;
         this.#state.index = (this.#state.index + 1) % (children.length + 2);
