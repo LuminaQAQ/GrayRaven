@@ -5,29 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style/index.css">
+    <!-- <link rel="stylesheet" href="./style/index.css"> -->
 </head>
 
 <body>
 
-    <section class="main-container" part="container">
-        <header class="statistics-wrap">
-            <span class="current-index" part="current-index">02</span>/
-            <span class="total-index" part="total-index">03</span>//
-        </header>
-        <ul class="carousel-wrap" part="carousel-wrap">
-            <li class="carousel-item">1</li>
-            <li class="carousel-item">2</li>
-            <li class="carousel-item">3</li>
-        </ul>
-        <footer class="footer-wrap" part="footer-wrap">
-            <div class="cursors-wrap" part="cursors-wrap">
-                <span class="carousel-cursor-item active"></span>
-                <span class="carousel-cursor-item"></span>
-                <span class="carousel-cursor-item"></span>
-            </div>
-        </footer>
-    </section>
+    <gr-carousel></gr-carousel>
 
     <script type="module">
         import "./index.js"
@@ -36,32 +19,67 @@
         const carouselWrap = document.querySelector(".carousel-wrap");
         const items = document.querySelectorAll(".carousel-item");
 
-        setInterval(() => {
-            index = (index + 1) % (items.length + 1);
+        const initCarouselItem = () => {
 
-            if (index === items.length) {
-                items[0].style.translate = `${index * 100}%`;
-            }
+        }
 
-            if (index === 0) {
-                items[items.length - 1].style.translate = `${-(items.length - 1) * 100}%`;
-            }
+        // const handleBoundray = (items) => {
+        //     if (index === items.length) {
+        //         items[0].style.translate = `${index * 100}%`;
+        //     }
 
-            carouselWrap.style.translate = `${-index * 100}%`;
+        //     if (index === 0) {
+        //         items[items.length - 1].style.translate = `${-(items.length - 1) * 100}%`;
+        //     }
+        // }
 
-            carouselWrap.addEventListener("transitionend", () => {
-                carouselWrap.style.transitionDuration = `0s`;
-                if (index === items.length) {
-                    index = 0;
-                    items[0].style.translate = `0%`;
-                    carouselWrap.style.translate = `${-index * 100}%`;
-                }
+        // const next = () => {
+        //     index = (index + 1) % (items.length + 1);
 
-                setTimeout(() => {
-                    carouselWrap.style.transitionDuration = `.3s`;
-                }, 10);
-            })
-        }, 3000);
+        //     handleBoundray(items);
+
+        //     carouselWrap.style.translate = `${-index * 100}%`;
+
+        //     carouselWrap.addEventListener("transitionend", () => {
+        //         carouselWrap.style.transitionDuration = `0s`;
+        //         if (index === items.length) {
+        //             index = 0;
+        //             items[0].style.translate = `0%`;
+        //             carouselWrap.style.translate = `${-index * 100}%`;
+        //         }
+
+        //         setTimeout(() => {
+        //             carouselWrap.style.transitionDuration = `.3s`;
+        //         }, 10);
+        //     })
+        // }
+
+        // setInterval(() => {
+        //     index = (index + 1) % (items.length + 1);
+
+        //     if (index === items.length) {
+        //         items[0].style.translate = `${index * 100}%`;
+        //     }
+
+        //     carouselWrap.style.translate = `${-index * 100}%`;
+
+
+        // }, 3000);
+
+        // carouselWrap.addEventListener("transitionend", () => {
+        //     carouselWrap.style.transitionDuration = `0s`;
+
+        //     if (index === items.length) {
+        //         index = 0;
+        //         carouselWrap.style.translate = `${-index * 100}%`;
+        //     }
+
+        //     items[0].style.translate = `0%`;
+
+        //     setTimeout(() => {
+        //         carouselWrap.style.transitionDuration = `.3s`;
+        //     }, 10);
+        // })
 
     </script>
 </body>

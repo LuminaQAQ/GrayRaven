@@ -27,7 +27,7 @@ body {
     @include clear-ul-default-style;
 
     display: flex;
-    transition: translate 0.3s;
+    transition: transform 0.3s;
 
     .carousel-item {
       flex: 1 0 100%;
@@ -35,19 +35,16 @@ body {
       height: 10rem;
 
       background-color: #99a9bf;
-
-      &:nth-child(odd) {
-        background-color: #d3dce6;
-      }
+      border: 1px solid black;
     }
   }
 
   .footer-wrap {
-    .cursors-wrap {
+    .indicator-wrap {
       display: flex;
       justify-content: flex-end;
 
-      .carousel-cursor-item {
+      .carousel-indicator-item {
         display: block;
         width: 1rem;
         height: 1rem;
