@@ -13,6 +13,8 @@
 
             width: 100%;
             height: 100%;
+
+            background-color: gray;
         }
     </style>
 </head>
@@ -20,8 +22,23 @@
 <body>
     <script type="module" src="./index.js"></script>
     <gr-tabs>
-        <gr-tab title="标签一">1</gr-tab>
-        <gr-tab title="标签二">2</gr-tab>
+        <gr-tab title="标签一">
+            <gr-list>
+                <div slot="prefix">【最新】</div>
+                <div>content</div>
+                <div slot="suffix">【2024-11-07】</div>
+            </gr-list>
+        </gr-tab>
+        <gr-tab title="标签二">
+            <gr-list>
+                <div slot="prefix">【攻略】</div>
+                <div>content</div>
+                <div slot="suffix">【2023-11-07】</div>
+            </gr-list>
+        </gr-tab>
+        <div slot="footer">
+            <button>hhhh</button>
+        </div>
     </gr-tabs>
 </body>
 

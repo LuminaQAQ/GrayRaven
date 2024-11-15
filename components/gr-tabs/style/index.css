@@ -1,0 +1,36 @@
+.tabs-container .tab-wrap {
+  position: relative;
+  user-select: none;
+}
+.tabs-container .tab-wrap .tab-list-wrap {
+  display: flex;
+  align-items: center;
+}
+.tabs-container .tab-wrap .tab-list-wrap .tab-item {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: white;
+}
+.tabs-container .tab-wrap .tab-list-wrap .tab-item:hover {
+  color: darkgrey;
+}
+.tabs-container .tab-wrap .tab-cursor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1.5rem;
+  height: 1px;
+  background-color: red;
+  transition: left 0.3s;
+}
+.tabs-container .content-wrap {
+  overflow: hidden;
+}
+.tabs-container .content-wrap .list-wrap {
+  display: flex;
+  transition: transform 0.3s;
+}
+.tabs-container .content-wrap .list-wrap .content-item {
+  flex: 1 0 100%;
+}

@@ -1,0 +1,42 @@
+.list-item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+
+  color: white;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  .content-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    transition: transform 0.5s;
+
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+
+      height: 100%;
+      width: 0;
+
+      background-color: red;
+
+      transition: width 0.3s;
+    }
+  }
+
+  &:hover {
+    .content-wrap {
+      transform: translateX(0.5rem);
+
+      &::before {
+        width: 2px;
+      }
+    }
+  }
+}

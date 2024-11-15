@@ -1,0 +1,51 @@
+.tabs-container {
+  .tab-wrap {
+    position: relative;
+    user-select: none;
+
+    .tab-list-wrap {
+      display: flex;
+      align-items: center;
+
+      .tab-item {
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+
+        color: white;
+
+        &:hover {
+          color: darkgrey;
+        }
+      }
+    }
+
+    .tab-cursor {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      width: 1.5rem;
+      height: 1px;
+
+      background-color: red;
+
+      transition: left 0.3s;
+    }
+  }
+
+  .content-wrap {
+    overflow: hidden;
+
+    .list-wrap {
+      display: flex;
+
+      transition: transform 0.3s;
+
+      .content-item {
+        flex: 1 0 100%;
+      }
+    }
+  }
+}

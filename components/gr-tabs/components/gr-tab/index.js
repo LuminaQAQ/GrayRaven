@@ -3,12 +3,22 @@ class GrTab extends HTMLElement {
         super();
 
         const shadowRoot = this.attachShadow({ mode: "open" });
+    }
 
-        shadowRoot.innerHTML = `
-            <section class="tab-container" part="container">
-                <slot></slot>
-            </section>
-        `;
+    // ------- title -------
+    // #region
+    get title() {
+        return this.getAttribute("title");
+    }
+
+    set title(val) {
+        this.setAttribute("title", val);
+    }
+    // #endregion
+    // ------- end -------
+
+    connectedCallback() {
+
     }
 }
 
