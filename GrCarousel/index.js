@@ -1,10 +1,12 @@
 import "./components/GrCarouselItem/index.js"
+import { stylesheet } from "./style/index.js";
 
 class GrCarousel extends HTMLElement {
     #state = {
         ITEM_LEN: 0,
         index: 0,
-        timer: null
+        timer: null,
+        isDrag: false
     };
     constructor() {
         super();
@@ -12,7 +14,7 @@ class GrCarousel extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: "open" });
 
         shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="./style/index.css">
+            <style>${stylesheet}</style>
             <section class="main-container" part="container">
                 <header class="statistics-wrap" part="statistics-wrap">
                     <span class="current-index" part="current-index"></span>
@@ -142,6 +144,7 @@ class GrCarousel extends HTMLElement {
 
         setTimeout(() => {
             this._carouselWrap.style.transitionDuration = ".3s";
+            this.#state.isDrag = false;
         }, 0);
     }
 
@@ -166,6 +169,9 @@ class GrCarousel extends HTMLElement {
      * @param {TouchEvent} startEvent 触摸事件的Event
      */
     #touchEvent(startEvent) {
+        if (this.#state.isDrag) return;
+        this.#state.isDrag = true;
+
         const controller = new AbortController();
         const startPoint = startEvent.touches[0].clientX;
         let endPoint = null;
@@ -191,6 +197,9 @@ class GrCarousel extends HTMLElement {
      * @param {MouseEvent} startEvent 拖动事件的Event
      */
     #mouseDragEvent(startEvent) {
+        if (this.#state.isDrag) return;
+        this.#state.isDrag = true;
+
         const controller = new AbortController();
         const startPoint = startEvent.clientX;
         let endPoint = null;

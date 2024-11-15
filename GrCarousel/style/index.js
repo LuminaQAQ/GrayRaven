@@ -1,3 +1,4 @@
+export const stylesheet = `
 .main-container {
   overflow: hidden;
   width: 100%;
@@ -79,3 +80,4 @@
 .main-container .footer-wrap .indicator-wrap .carousel-indicator-item.active::before {
   border-color: red;
 }
+`;

@@ -1,3 +1,4 @@
+export const stylesheet = `
 .carousel-item {
   position: relative;
   display: flex;
@@ -10,3 +11,4 @@
   object-fit: cover;
   -webkit-user-drag: none;
 }
+`;

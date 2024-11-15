@@ -1,3 +1,5 @@
+import { stylesheet } from "./style/index.js";
+
 class GrCarouselItem extends HTMLElement {
     constructor() {
         super();
@@ -5,7 +7,7 @@ class GrCarouselItem extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: "open" });
 
         shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="/GrCarousel/components/GrCarouselItem/style/index.css">
+            <style>${stylesheet}</style>
             <section class="carousel-item" part="container">
                 <slot></slot>
             </section>
