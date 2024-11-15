@@ -56,6 +56,10 @@ class GrCarousel extends HTMLElement {
      * 初始化 `轮播图元素` 结构
      */
     #initCarouselItem() {
+        Array.from(this.childNodes).forEach(item => {
+            if (item.tagName !== "GR-CAROUSEL-ITEM") item.remove();
+        })
+
         const children = this.children;
         const firstChild = children[0].cloneNode(true);
         const lastChild = children[children.length - 1].cloneNode(true);
