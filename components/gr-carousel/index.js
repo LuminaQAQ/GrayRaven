@@ -91,6 +91,7 @@ class GrCarousel extends HTMLElement {
             const indicator = document.createElement("span");
             indicator.index = i + 1;
             indicator.className = "carousel-indicator-item";
+            indicator.part = "indicator-item";
             indicator.classList.toggle("active", this.#state.index === i + 1);
 
             indicator.addEventListener("click", () => {
