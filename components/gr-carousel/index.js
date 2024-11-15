@@ -1,4 +1,4 @@
-import "./components/GrCarouselItem/index.js"
+import "./components/gr-carousel-item/index.js"
 import { stylesheet } from "./style/index.js";
 
 class GrCarousel extends HTMLElement {

@@ -1,5 +1,5 @@
-import "./components/GrAsideItem/index.js";
-import "./components/GrPage/index.js"
+import "./components/gr-aside-item/index.js";
+import "./components/gr-page/index.js"
 import { stylesheet } from "./style/index.js";
 
 class GrComponent extends HTMLElement {
