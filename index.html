@@ -27,7 +27,28 @@
 </head>
 
 <body>
-    <gr-aside></gr-aside>
+    <script type="module" src="./components/GrComponent/index.js"></script>
+    <script type="module" src="./components/GrCarousel/index.js"></script>
+    <gr-component active="News">
+        <ul slot="aside">
+            <gr-aside-item path="Home" title="首页" desc="HOME"></gr-aside-item>
+            <gr-aside-item path="News" title="新闻" desc="NEWS"></gr-aside-item>
+        </ul>
+        <div slot="pages">
+            <gr-page path="News">
+                <gr-carousel>
+                    <gr-carousel-item>1</gr-carousel-item>
+                    <gr-carousel-item>
+                        <img src="/assets/imgs/home-bg.png" alt="">
+                    </gr-carousel-item>
+                    <gr-carousel-item>3</gr-carousel-item>
+                </gr-carousel>
+            </gr-page>
+            <gr-page path="Home">Home</gr-page>
+        </div>
+    </gr-component>
+
+    <!-- <gr-aside></gr-aside>
     <gr-container>
         <gr-page page="Home" class="home-page" style="background-image: url('./assets/imgs/home-bg.png');">
             <video src="./assets/videos/home-video.mp4" autoplay muted loop></video>
@@ -106,7 +127,7 @@
         import "./components/common/GrContainer.js";
 
 
-    </script>
+    </script> -->
 </body>
 
 </html>
