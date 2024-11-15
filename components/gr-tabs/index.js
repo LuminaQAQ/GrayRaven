@@ -43,12 +43,14 @@ class GrTabs extends HTMLElement {
      * @param {String} title 标签名
      * @returns {HTMLDivElement} 
      */
-    #createTabElement(title) {
+    #createTabElement(title, index) {
         const tab = document.createElement("div");
         tab.classList.add("tab-item");
         tab.part = "tab-item";
-
-        tab.innerText = title;
+        tab.innerHTML = `
+            <span class="index">0${index}</span>
+            <span class="title">${title}</span>
+        `;
 
         return tab;
     }
@@ -71,16 +73,23 @@ class GrTabs extends HTMLElement {
     #initTabHTMLStruct() {
         Array.from(this.children).forEach((item, index) => {
             if (item.tagName === "GR-TAB") {
-                const tab = this.#createTabElement(item.title);
+                const tab = this.#createTabElement(item.title, index);
                 const content = this.#createContentElement(item.innerHTML);
 
                 tab.index = index;
                 content.index = index;
 
+                tab.style.setProperty("--sign-text", `"0${index + 1}"`);
+
                 tab.addEventListener("click", () => {
                     this._contentWrap.style.transform = `translateX(${-index * 100}%)`;
                     this.#state.curIndex = index;
                     this._tabCursor.style.left = `${tab.offsetWidth * (index + 1) - 28}px`;
+
+                    const tabs = this._tabWrap.querySelectorAll(".tab-item");
+                    tabs.forEach((item, clearIndex) => {
+                        item.classList.toggle("active", clearIndex === index);
+                    })
                 });
 
                 this._tabWrap.appendChild(tab);
@@ -93,9 +102,12 @@ class GrTabs extends HTMLElement {
         this._temp.remove();
 
 
-
         setTimeout(() => {
-            const width = this._tabWrap.children[0].offsetWidth;
+            const tabs = this._tabWrap.querySelectorAll(".tab-item");
+            const width = tabs[0].offsetWidth;
+            tabs.forEach((item, clearIndex) => {
+                item.classList.toggle("active", clearIndex === this.#state.curIndex);
+            })
 
             this._tabCursor.style.left = `${width * (this.#state.curIndex + 1) - 28}px`;
         }, 20);

@@ -1,3 +1,7 @@
+:host {
+  --transition-duration: 0.4s;
+}
+
 .tabs-container .tab-wrap {
   position: relative;
   user-select: none;
@@ -7,13 +11,22 @@
   align-items: center;
 }
 .tabs-container .tab-wrap .tab-list-wrap .tab-item {
+  --sign-text: "";
+  --sign-color: red;
+  --sign-font-size: 0.9rem;
+  perspective: 1px;
+  position: relative;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   padding: 0.5rem 1rem;
   cursor: pointer;
   color: white;
+  z-index: 0;
 }
-.tabs-container .tab-wrap .tab-list-wrap .tab-item:hover {
+.tabs-container .tab-wrap .tab-list-wrap .tab-item:hover .title {
   color: darkgrey;
+}
+.tabs-container .tab-wrap .tab-list-wrap .tab-item.active::before {
+  filter: opacity(1);
 }
 .tabs-container .tab-wrap .tab-cursor {
   position: absolute;
@@ -22,14 +35,14 @@
   width: 1.5rem;
   height: 1px;
   background-color: red;
-  transition: left 0.3s;
+  transition: left var(--transition-duration);
 }
 .tabs-container .content-wrap {
   overflow: hidden;
 }
 .tabs-container .content-wrap .list-wrap {
   display: flex;
-  transition: transform 0.3s;
+  transition: transform var(--transition-duration);
 }
 .tabs-container .content-wrap .list-wrap .content-item {
   flex: 1 0 100%;
