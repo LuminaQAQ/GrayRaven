@@ -5,109 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./style/index.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+
+            margin: 0;
+            padding: 0;
+
+            user-select: none;
+
+            background-color: gray;
+        }
+    </style>
 </head>
 
 <body>
 
-    <section class="main-container" part="container">
-        <header class="statistics-wrap">
-            <span class="current-index" part="current-index">02</span>/
-            <span class="total-index" part="total-index">03</span>//
-        </header>
-        <ul class="carousel-wrap" part="carousel-wrap">
-            <li class="carousel-item">1</li>
-            <li class="carousel-item">2</li>
-            <li class="carousel-item">3</li>
-        </ul>
-        <footer class="footer-wrap" part="footer-wrap">
-            <div class="cursors-wrap" part="cursors-wrap">
-                <span class="carousel-cursor-item active"></span>
-                <span class="carousel-cursor-item"></span>
-                <span class="carousel-cursor-item"></span>
-            </div>
-        </footer>
-    </section>
+    <gr-carousel>
+        <gr-carousel-item>1</gr-carousel-item>
+        <gr-carousel-item>
+            <img src="/assets/imgs/home-bg.png" alt="">
+        </gr-carousel-item>
+        <gr-carousel-item>3</gr-carousel-item>
+    </gr-carousel>
 
     <script type="module">
         import "./index.js"
-
-        let index = 1;
-
-        const mainContainer = document.querySelector(".main-container");
-        const container = document.querySelector(".carousel-wrap");
-        const items = document.querySelectorAll(".carousel-item");
-        const cursors = document.querySelectorAll(".carousel-cursor-item");
-
-        const prevEl = items[items.length - 1].cloneNode(true);
-        items[items.length - 1].remove();
-        container.insertBefore(prevEl, container.firstChild);
-        container.style.translate = `${-index * 100}%`;
-
-        // mainContainer.addEventListener("touchstart", startE => {
-        // const controller = new AbortController();
-
-        // const items = document.querySelectorAll(".carousel-item");
-
-        // let endPoint = null;
-        // let startPoint = startE.touches[0].pageX;
-
-        // container.addEventListener("touchmove", moveE => {
-        //     endPoint = moveE.touches[0].pageX;
-
-        //     const step = startPoint - endPoint;
-        //     const flag = step > 0 ? 1 : -1;
-
-        //     container.style.transform = `translateX(${step * flag}px)`;
-        // }, { signal: controller.signal });
-
-        // mainContainer.addEventListener("touchend", () => {
-        //     // if (startPoint - endPoint > container.offsetWidth / 2)
-        //     //     container.style.transform = `translateX(${--index * 100}%)`;
-        //     // else
-        //     //     container.style.transform = `translateX(${index * -100}%)`;
-
-        //     // container.addEventListener("transitionend", () => {
-        //     //     const cloneNode = items[0].cloneNode(true);
-        //     //     container.appendChild(cloneNode);
-        //     //     items[0].remove();
-
-        //     //     controller.abort();
-        //     // }, { signal: controller.signal })
-
-        //     controller.abort();
-        // }, { signal: controller.signal })
-        // })
-
-        mainContainer.addEventListener("mousedown", e => {
-            const controller = new AbortController();
-
-            const starPoint = e.clientX;
-            let endPoint;
-
-            mainContainer.addEventListener("mousemove", moveE => {
-                endPoint = moveE.clientX;
-                container.style.translate = `calc(${(endPoint < starPoint ? -1 : 1) * index * 100}% + ${(starPoint - endPoint)}px)`;
-            }, { signal: controller.signal })
-
-            mainContainer.addEventListener("mouseup", () => {
-                const step = starPoint - endPoint;
-                const containerWidth = items[0].getBoundingClientRect().width;
-
-                // if (Math.abs(step) > containerWidth / 2) {
-                //     if (step < 0) {
-                //         index - 1 < 0 ? index = 2 : index--;
-                //     } else {
-                //         index + 1 < 2 ? index = 0 : index++;
-                //     }
-                // }
-
-                // container.style.translate = `${(endPoint < starPoint ? -1 : 1) * index * 100}%`;
-                container.style.translate = `${-index * 100}%`;
-
-                controller.abort();
-            }, { signal: controller.signal })
-        })
     </script>
 </body>
 
