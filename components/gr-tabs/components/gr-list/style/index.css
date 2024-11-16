@@ -28,3 +28,9 @@
 .list-item-container:hover .content-wrap::before {
   width: 2px;
 }
+.list-item-container ::slotted(*[slot=prefix]),
+.list-item-container ::slotted(*[slot=suffix]) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

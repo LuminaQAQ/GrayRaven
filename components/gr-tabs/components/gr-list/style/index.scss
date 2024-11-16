@@ -1,3 +1,8 @@
+@mixin sg-line-text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .list-item-container {
   display: flex;
   justify-content: space-between;
@@ -38,5 +43,12 @@
         width: 2px;
       }
     }
+  }
+
+  ::slotted(*[slot="prefix"]),
+  ::slotted(*[slot="suffix"]) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

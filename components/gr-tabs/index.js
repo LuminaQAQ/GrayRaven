@@ -17,7 +17,11 @@ class GrTabs extends HTMLElement {
             <section class="tabs-container" part="container">
                 <header class="tab-wrap" part="tab-wrap">
                     <div class="tab-list-wrap" part="tab-list-wrap"></div>
-                    <span class="tab-cursor"></span>
+                    <span class="tab-line"></span>
+                    <span class="tab-cursor">
+                        <span class="cursor-tail"></span>
+                        <span class="cursor-arrow"></span>
+                    </span>
                 </header>
                 <main class="content-wrap" part="content-wrap">
                     <div class="list-wrap" part="list-wrap"></div>
@@ -32,6 +36,7 @@ class GrTabs extends HTMLElement {
         `;
 
         this._tabWrap = shadowRoot.querySelector(".tab-list-wrap");
+        this._tabLine = shadowRoot.querySelector(".tab-line");
         this._tabCursor = shadowRoot.querySelector(".tab-cursor");
 
         this._contentWrap = shadowRoot.querySelector(".list-wrap");
@@ -60,10 +65,11 @@ class GrTabs extends HTMLElement {
      * @param {InnerHTML} innerHTML 列表元素的模板字符串
      * @returns {HTMLDivElement}
      */
-    #createContentElement(innerHTML) {
+    #createContentElement(title, innerHTML) {
         const content = document.createElement("div");
         content.classList.add("content-item");
         content.part = "content-item";
+        content.setAttribute("data-tab-title", title);
 
         content.innerHTML = innerHTML;
 
@@ -74,7 +80,7 @@ class GrTabs extends HTMLElement {
         Array.from(this.children).forEach((item, index) => {
             if (item.tagName === "GR-TAB") {
                 const tab = this.#createTabElement(item.title, index);
-                const content = this.#createContentElement(item.innerHTML);
+                const content = this.#createContentElement(item.title, item.innerHTML);
 
                 tab.index = index;
                 content.index = index;
@@ -84,7 +90,8 @@ class GrTabs extends HTMLElement {
                 tab.addEventListener("click", () => {
                     this._contentWrap.style.transform = `translateX(${-index * 100}%)`;
                     this.#state.curIndex = index;
-                    this._tabCursor.style.left = `${tab.offsetWidth * (index + 1) - 28}px`;
+                    this._tabLine.style.left = `${tab.offsetWidth * (index + 1) - 28}px`;
+                    this._tabCursor.style.left = `${tab.offsetWidth * index}px`;
 
                     const tabs = this._tabWrap.querySelectorAll(".tab-item");
                     tabs.forEach((item, clearIndex) => {
@@ -102,6 +109,11 @@ class GrTabs extends HTMLElement {
         this._temp.remove();
 
 
+    }
+
+    connectedCallback() {
+        this.#initTabHTMLStruct();
+
         setTimeout(() => {
             const tabs = this._tabWrap.querySelectorAll(".tab-item");
             const width = tabs[0].offsetWidth;
@@ -109,12 +121,11 @@ class GrTabs extends HTMLElement {
                 item.classList.toggle("active", clearIndex === this.#state.curIndex);
             })
 
-            this._tabCursor.style.left = `${width * (this.#state.curIndex + 1) - 28}px`;
-        }, 20);
-    }
+            this._tabLine.style.left = `${width * (this.#state.curIndex + 1) - 28}px`;
+            this._tabCursor.style.left = `${width * this.#state.curIndex}px`;
 
-    connectedCallback() {
-        this.#initTabHTMLStruct();
+            this.dispatchEvent(new CustomEvent("gr-tabs-load"));
+        }, 50);
     }
 }
 

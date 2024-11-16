@@ -1,3 +1,9 @@
+@mixin sg-line-text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 :host {
   --transition-duration: 0.4s;
 }
@@ -16,12 +22,14 @@
         --sign-color: red;
         --sign-font-size: 0.9rem;
 
+        @include sg-line-text-overflow;
+
         perspective: 1px;
 
         position: relative;
         font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 
-        padding: 0.5rem 1rem;
+        padding: 0.75rem 1.25rem;
         cursor: pointer;
 
         color: white;
@@ -34,39 +42,98 @@
           }
         }
 
-        // &::before {
-        //   content: var(--sign-text);
-        //   display: block;
-        //   position: absolute;
-        //   left: 0;
-        //   top: 0;
+        .index {
+          position: absolute;
+          left: 0;
+          top: 0;
 
-        //   color: var(--sign-color);
-        //   font-size: var(--sign-font-size);
-        //   filter: opacity(0);
+          color: var(--sign-color);
+          font-size: var(--sign-font-size);
+          filter: opacity(0);
 
-        //   transition: filter var(--transition-duration);
-        // }
+          transition: filter var(--transition-duration);
+
+          &::after {
+            content: "";
+            position: absolute;
+            right: -1px;
+            bottom: -1px;
+
+            width: 1px;
+            height: 0.75rem;
+
+            transform: rotate(45deg);
+
+            background-color: red;
+          }
+        }
 
         &.active {
-          &::before {
+          .index {
             filter: opacity(1);
           }
         }
       }
     }
 
-    .tab-cursor {
+    .tab-line {
+      --tab-line-height: 1.25px;
       position: absolute;
       bottom: 0;
       left: 0;
 
-      width: 1.5rem;
-      height: 1px;
+      width: 1.25rem;
+      height: var(--tab-line-height);
 
       background-color: red;
 
       transition: left var(--transition-duration);
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -4px;
+        top: 0;
+
+        width: 2px;
+        height: var(--tab-line-height);
+
+        background-color: red;
+      }
+    }
+
+    .tab-cursor {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(50%);
+      transition: left var(--transition-duration);
+
+      .cursor-tail {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        width: 3px;
+        height: 3px;
+
+        background-color: red;
+      }
+
+      .cursor-arrow {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%) rotate(-45deg);
+
+        width: 0.5rem;
+        height: 0.5rem;
+
+        border: 2px solid red;
+        border-radius: 3px;
+        border-top: transparent;
+        border-left: transparent;
+      }
     }
   }
 

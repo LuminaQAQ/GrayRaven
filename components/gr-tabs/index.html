@@ -20,12 +20,11 @@
 </head>
 
 <body>
-    <script type="module" src="./index.js"></script>
-    <gr-tabs>
+    <gr-tabs id="grTab">
         <gr-tab title="标签一">
             <gr-list>
                 <div slot="prefix">【最新】</div>
-                <div>content</div>
+                <div>《战双帕弥什》锈夜逐光版本一览</div>
                 <div slot="suffix">【2024-11-07】</div>
             </gr-list>
         </gr-tab>
@@ -40,6 +39,45 @@
             <button>hhhh</button>
         </div>
     </gr-tabs>
+
+    <script type="module">
+        import "./index.js"
+
+        const mockList = [
+            {
+                prefix: "【最新】",
+                content: "《战双帕弥什》锈夜逐光版本一览",
+                surfix: "【2024-11-07】",
+                href: ""
+            },
+            {
+                prefix: "【最新】",
+                content: "《战双帕弥什》新版本「锈夜逐光」PV公开 | 时轮重构，孤影洄光",
+                surfix: "【2024-11-06】",
+                href: ""
+            },
+            {
+                prefix: "【最新】",
+                content: "《锈夜逐光》版本更新公告",
+                surfix: "【2024-11-05】",
+                href: ""
+            },
+        ];
+
+        const grTab = document.querySelector("#grTab");
+        const fetchData = () => new Promise(resolve => {
+            setTimeout(() => {
+                resolve({ data: mockList })
+            }, 200);
+        })
+        grTab.addEventListener("gr-tabs-load", async () => {
+            const tab1 = grTab.shadowRoot.querySelector("[data-tab-title='标签一']");
+            fetchData().then(res => {
+                const template = window.$renderList(res.data);
+
+            })
+        });
+    </script>
 </body>
 
 </html>
