@@ -41,6 +41,15 @@
     white-space: nowrap;
   }
 
+  ::slotted(*) {
+    @include sg-line-text-overflow;
+  }
+
+  ::slotted(*[slot="prefix"]),
+  ::slotted(*[slot="suffix"]) {
+    white-space: nowrap;
+  }
+
   &:hover {
     .content-wrap {
       transform: translateX(0.5rem);

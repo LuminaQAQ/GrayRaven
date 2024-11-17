@@ -32,6 +32,15 @@
 .list-item-container .prefix-desc-wrap {
   white-space: nowrap;
 }
+.list-item-container ::slotted(*) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.list-item-container ::slotted(*[slot=prefix]),
+.list-item-container ::slotted(*[slot=suffix]) {
+  white-space: nowrap;
+}
 .list-item-container:hover .content-wrap {
   transform: translateX(0.5rem);
 }
