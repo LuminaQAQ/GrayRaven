@@ -22,15 +22,19 @@
   background-color: red;
   transition: width 0.3s;
 }
+.list-item-container .msg-wrap,
+.list-item-container .content-wrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.list-item-container .suffix-desc-wrap,
+.list-item-container .prefix-desc-wrap {
+  white-space: nowrap;
+}
 .list-item-container:hover .content-wrap {
   transform: translateX(0.5rem);
 }
 .list-item-container:hover .content-wrap::before {
   width: 2px;
-}
-.list-item-container ::slotted(*[slot=prefix]),
-.list-item-container ::slotted(*[slot=suffix]) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

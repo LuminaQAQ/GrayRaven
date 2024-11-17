@@ -15,22 +15,23 @@ class GrList extends HTMLElement {
                 @import "/components/gr-tabs/components/gr-list/style/index.css";
             </style>
             <a class="list-item-container" part="container">
-                <div class="content-wrap">
-                    <div class="prefix-desc-wrap" part="prefix-desc">
+                <span class="content-wrap">
+                    <span class="prefix-desc-wrap" part="prefix-desc">
                         <slot name="prefix"></slot>
-                    </div>
-                    <div class="msg-wrap" part="msg-wrap">
+                    </span>
+                    <span class="msg-wrap" part="msg-wrap">
                         <slot></slot>
-                    </div>
-                </div>
-                <div class="suffix-desc-wrap" part="suffix-desc">
+                    </span>
+                </span>
+                <span class="suffix-desc-wrap" part="suffix-desc">
                     <slot name="suffix"></slot>
-                </div>
+                </span>
             </a>
         `;
 
         this._container = shadowRoot.querySelector(".list-item-container");
         this._prefixWrap = shadowRoot.querySelector(".prefix-desc-wrap");
+        this._surfixWrap = shadowRoot.querySelector(".suffix-desc-wrap");
         this._contentWrap = shadowRoot.querySelector(".msg-wrap");
     }
 
@@ -45,6 +46,36 @@ class GrList extends HTMLElement {
 
         this.#state.prefix = val;
         this._prefixWrap.innerHTML = val
+    }
+    // #endregion
+    // ------- end -------
+
+    // ------- surfix -------
+    // #region
+    get surfix() {
+        return this.#state.surfix;
+    }
+
+    set surfix(val) {
+        if (!val) return;
+
+        this.#state.surfix = val;
+        this._surfixWrap.innerHTML = val
+    }
+    // #endregion
+    // ------- end -------
+
+    // ------- content -------
+    // #region
+    get content() {
+        return this.#state.content;
+    }
+
+    set content(val) {
+        if (!val) return;
+
+        this.#state.surfix = val;
+        this._contentWrap.innerHTML = val
     }
     // #endregion
     // ------- end -------
@@ -71,17 +102,17 @@ class GrList extends HTMLElement {
 
 /**
  * 
+ * @param {HTMLElement} root 
  * @param {Array} arr 
- * @returns {String}
  */
-window.$renderList = (arr) => {
-    const html = "";
-
+window.$renderGrList = (root, arr) => {
     arr.forEach(item => {
-        // const
+        const el = document.createElement("gr-list");
+        for (const k in item) {
+            el[k] = item[k];
+        }
+        root.appendChild(el);
     })
-
-    return html;
 }
 
 window.customElements.define("gr-list", GrList);

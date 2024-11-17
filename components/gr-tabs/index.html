@@ -73,7 +73,7 @@
         grTab.addEventListener("gr-tabs-load", async () => {
             const tab1 = grTab.shadowRoot.querySelector("[data-tab-title='标签一']");
             fetchData().then(res => {
-                const template = window.$renderList(res.data);
+                const template = window.$renderGrList(tab1, res.data);
 
             })
         });

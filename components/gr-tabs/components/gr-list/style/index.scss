@@ -3,52 +3,50 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .list-item-container {
+  // width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1.25rem;
-
   color: white;
   text-decoration: none;
-
   cursor: pointer;
 
   .content-wrap {
     position: relative;
     display: flex;
     align-items: center;
-
     transition: transform 0.5s;
 
     &::before {
       content: "";
       position: absolute;
       display: block;
-
       height: 100%;
       width: 0;
-
       background-color: red;
-
       transition: width 0.3s;
     }
+  }
+
+  .msg-wrap,
+  .content-wrap {
+    @include sg-line-text-overflow;
+  }
+
+  .suffix-desc-wrap,
+  .prefix-desc-wrap {
+    white-space: nowrap;
   }
 
   &:hover {
     .content-wrap {
       transform: translateX(0.5rem);
-
       &::before {
         width: 2px;
       }
     }
-  }
-
-  ::slotted(*[slot="prefix"]),
-  ::slotted(*[slot="suffix"]) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
