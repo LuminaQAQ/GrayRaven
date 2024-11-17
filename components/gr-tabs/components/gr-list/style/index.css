@@ -1,3 +1,7 @@
+:host {
+  --odd-background-color: inherit;
+}
+
 .list-item-container {
   display: flex;
   justify-content: space-between;
@@ -6,6 +10,7 @@
   color: white;
   text-decoration: none;
   cursor: pointer;
+  background-color: var(--odd-background-color);
 }
 .list-item-container .content-wrap {
   position: relative;

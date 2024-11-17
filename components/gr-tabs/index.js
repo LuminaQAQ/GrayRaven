@@ -122,7 +122,6 @@ class GrTabs extends HTMLElement {
             })
 
             this._tabLine.style.left = `${width * (this.#state.curIndex + 1) - 28}px`;
-            this._tabCursor.style.left = `${width * this.#state.curIndex}px`;
 
             this.dispatchEvent(new CustomEvent("gr-tabs-load"));
         }, 50);

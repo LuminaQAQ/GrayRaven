@@ -4,6 +4,10 @@
   white-space: nowrap;
 }
 
+:host {
+  --odd-background-color: inherit;
+}
+
 .list-item-container {
   // width: 100%;
   display: flex;
@@ -13,6 +17,8 @@
   color: white;
   text-decoration: none;
   cursor: pointer;
+
+  background-color: var(--odd-background-color);
 
   .content-wrap {
     position: relative;

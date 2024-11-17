@@ -148,6 +148,10 @@
       .content-item {
         flex: 1 0 100%;
         width: 100%;
+
+        gr-list:nth-child(odd) {
+          --odd-background-color: rgba(255, 255, 255, 0.1);
+        }
       }
     }
   }
