@@ -1,6 +1,8 @@
 import "./components/gr-tab/index.js"
 import "./components/gr-list/index.js"
 
+import { stylesheet } from "./style/index.js";
+
 class GrTabs extends HTMLElement {
     #state = {
         LEN: 0,
@@ -13,7 +15,7 @@ class GrTabs extends HTMLElement {
 
         shadowRoot.innerHTML = `
             <style>
-                @import "/components/gr-tabs/style/index.css";
+                ${stylesheet}
             </style>
             <section class="tabs-container" part="container">
                 <header class="tab-wrap" part="tab-wrap">

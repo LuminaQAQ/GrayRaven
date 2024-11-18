@@ -1,3 +1,5 @@
+import { stylesheet } from "./style/index.js";
+
 class GrList extends HTMLElement {
     #state = {
         prefix: "",
@@ -12,7 +14,7 @@ class GrList extends HTMLElement {
 
         shadowRoot.innerHTML = `
             <style>
-                @import "/components/gr-tabs/components/gr-list/style/index.css";
+                ${stylesheet}
             </style>
             <a class="list-item-container" part="container">
                 <span class="content-wrap">
