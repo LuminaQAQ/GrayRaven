@@ -3,6 +3,7 @@ import "./components/gr-list/index.js"
 
 class GrTabs extends HTMLElement {
     #state = {
+        LEN: 0,
         curIndex: 0,
     }
     constructor() {
@@ -42,6 +43,18 @@ class GrTabs extends HTMLElement {
         this._contentWrap = shadowRoot.querySelector(".list-wrap");
         this._temp = shadowRoot.querySelector(".temp");
     }
+
+    // ------- curIndex -------
+    // #region
+    get curIndex() {
+        return this.#state.curIndex;
+    }
+
+    set curIndex(val) {
+        this.#state.curIndex = val;
+    }
+    // #endregion
+    // ------- end -------
 
     /**
      * 创建标签元素
@@ -89,7 +102,7 @@ class GrTabs extends HTMLElement {
 
                 tab.addEventListener("click", () => {
                     this._contentWrap.style.transform = `translateX(${-index * 100}%)`;
-                    this.#state.curIndex = index;
+                    this.curIndex = index;
                     this._tabLine.style.left = `${tab.offsetWidth * (index + 1) - 28}px`;
                     this._tabCursor.style.left = `${tab.offsetWidth * index}px`;
 
@@ -103,25 +116,62 @@ class GrTabs extends HTMLElement {
                 this._contentWrap.appendChild(content);
 
                 item.remove();
+                this.#state.LEN++;
             }
         });
 
         this._temp.remove();
+    }
 
+    /**
+     * 用于在 `鼠标拖动` 和 `手指移动` 时，切换到对应 `tab`
+     * @param {Number} startPoint 
+     * @param {Number} endPoint 
+     */
+    #handleContentMove(startPoint, endPoint) {
+        const width = this._contentWrap.offsetWidth;
+        const tabs = this._tabWrap.querySelectorAll(".tab-item");
 
+        if (startPoint > endPoint && startPoint - endPoint > width / 2) {
+            tabs[this.curIndex + 1 > this.#state.LEN - 1 ? this.#state.LEN - 1 : this.curIndex + 1].click();
+        } else if (startPoint < endPoint && endPoint - startPoint > width / 2) {
+            tabs[this.curIndex - 1 < 0 ? 0 : this.curIndex - 1].click();
+        } else {
+            tabs[this.curIndex].click();
+        }
+    }
+
+    #initTouchEvent() {
+        this._contentWrap.addEventListener("touchstart", (startE) => {
+            const controller = new AbortController();
+            const startPoint = startE.touches[0].clientX;
+            let endPoint = null;
+
+            this._contentWrap.addEventListener("touchmove", (moveE) => {
+                endPoint = moveE.touches[0].clientX;
+
+                this._contentWrap.style.transform = `translateX(calc(${this.curIndex * -100}% - ${startPoint - endPoint}px))`;
+            }, { signal: controller.signal })
+
+            this._contentWrap.addEventListener("touchend", () => {
+                this.#handleContentMove(startPoint, endPoint);
+                controller.abort();
+            }, { signal: controller.signal })
+        })
     }
 
     connectedCallback() {
         this.#initTabHTMLStruct();
+        this.#initTouchEvent();
 
         setTimeout(() => {
             const tabs = this._tabWrap.querySelectorAll(".tab-item");
             const width = tabs[0].offsetWidth;
             tabs.forEach((item, clearIndex) => {
-                item.classList.toggle("active", clearIndex === this.#state.curIndex);
+                item.classList.toggle("active", clearIndex === this.curIndex);
             })
 
-            this._tabLine.style.left = `${width * (this.#state.curIndex + 1) - 28}px`;
+            this._tabLine.style.left = `${width * (this.curIndex + 1) - 28}px`;
 
             this.dispatchEvent(new CustomEvent("gr-tabs-load"));
         }, 50);
