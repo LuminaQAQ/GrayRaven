@@ -17,7 +17,7 @@ class GrList extends HTMLElement {
                 ${stylesheet}
             </style>
             <a class="list-item-container" part="container">
-                <span class="content-wrap">
+                <span class="content-wrap" part="content-wrap">
                     <span class="prefix-desc-wrap" part="prefix-desc">
                         <slot name="prefix"></slot>
                     </span>

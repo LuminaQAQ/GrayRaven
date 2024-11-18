@@ -20,10 +20,10 @@ class GrTabs extends HTMLElement {
             <section class="tabs-container" part="container">
                 <header class="tab-wrap" part="tab-wrap">
                     <div class="tab-list-wrap" part="tab-list-wrap"></div>
-                    <span class="tab-line"></span>
-                    <span class="tab-cursor">
-                        <span class="cursor-tail"></span>
-                        <span class="cursor-arrow"></span>
+                    <span class="tab-line" part="tab-line"></span>
+                    <span class="tab-cursor" part="tab-cursor">
+                        <span class="cursor-tail" part="cursor-tail"></span>
+                        <span class="cursor-arrow" part="cursor-arrow"></span>
                     </span>
                 </header>
                 <main class="content-wrap" part="content-wrap">
