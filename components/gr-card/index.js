@@ -73,7 +73,8 @@ class GrHoverCard extends HTMLElement {
     }
 
     set href(val) {
-        this
+        if (!val) return;
+        this._container?.setAttribute("href", val);
     }
     // #endregion
     // ------- end -------
@@ -82,6 +83,8 @@ class GrHoverCard extends HTMLElement {
         this.title = this.title;
         this.desc = this.desc;
         this.color = this.color;
+
+        this.href = this.href;
     }
 }
 

@@ -2,6 +2,7 @@ export const stylesheet = `
 :host {
   --title-color: white;
   --theme-color: white;
+  --transition-duration: 0.5s;
   width: 100%;
   height: 100%;
   background-size: cover;
@@ -23,7 +24,7 @@ export const stylesheet = `
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 1;
-  transition: top 0.3s;
+  transition: top var(--transition-duration);
 }
 .gr-hover-card .info-wrap .title {
   color: var(--title-color);
@@ -59,7 +60,7 @@ export const stylesheet = `
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  transition: filter 0.3s;
+  transition: filter var(--transition-duration);
 }
 .gr-hover-card:hover .info-wrap {
   top: 70%;
