@@ -16,6 +16,7 @@ class GrHoverCard extends HTMLElement {
             </a>
         `;
 
+        this._container = shadowRoot.querySelector(".gr-hover-card");
         this._titleWrap = shadowRoot.querySelector(".title");
         this._descWrap = shadowRoot.querySelector(".desc");
     }
@@ -48,9 +49,39 @@ class GrHoverCard extends HTMLElement {
     // #endregion
     // ------- end -------
 
+    // ------- color -------
+    // #region
+    get color() {
+        return this.getAttribute("color");
+    }
+
+    set color(val) {
+        if (!val) return;
+
+        const isColor = new Option();
+        isColor.style.color = val;
+
+        this.style.setProperty("--theme-color", isColor ? val : "white");
+    }
+    // #endregion
+    // ------- end -------
+
+    // ------- href -------
+    // #region
+    get href() {
+        return this.getAttribute("href");
+    }
+
+    set href(val) {
+        this
+    }
+    // #endregion
+    // ------- end -------
+
     connectedCallback() {
         this.title = this.title;
         this.desc = this.desc;
+        this.color = this.color;
     }
 }
 

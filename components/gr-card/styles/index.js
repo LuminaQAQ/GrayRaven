@@ -1,8 +1,12 @@
 export const stylesheet = `
 :host {
+  --title-color: white;
   --theme-color: white;
   width: 100%;
   height: 100%;
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
 }
 
 .gr-hover-card {
@@ -10,7 +14,6 @@ export const stylesheet = `
   display: block;
   width: 100%;
   height: 100%;
-  background-color: aquamarine;
   overflow: hidden;
 }
 .gr-hover-card .info-wrap {
@@ -23,6 +26,7 @@ export const stylesheet = `
   transition: top 0.3s;
 }
 .gr-hover-card .info-wrap .title {
+  color: var(--title-color);
   font-weight: 800;
   font-size: 1.25rem;
   white-space: nowrap;
@@ -39,7 +43,6 @@ export const stylesheet = `
   width: 50%;
   height: 1px;
   background-color: var(--theme-color);
-  background-color: white;
 }
 .gr-hover-card .info-wrap .desc::before {
   left: -0.5rem;
