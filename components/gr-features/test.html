@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .eye {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 20px;
+        }
+
+        .pupil {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: black;
+            border-radius: 50%;
+            top: 35px;
+            /* 初始位置 */
+            left: 35px;
+            /* 初始位置 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="eye" id="eye1">
+        <div class="pupil"></div>
+    </div>
+    <div class="eye" id="eye2">
+        <div class="pupil"></div>
+    </div>
+    <script>
+        document.addEventListener('mousemove', function (e) {
+            const eyes = document.querySelectorAll('.eye');
+            eyes.forEach(eye => {
+                const pupil = eye.querySelector('.pupil');
+                const eyeRect = eye.getBoundingClientRect();
+                const x = e.clientX - eyeRect.left - (eyeRect.width / 2);
+                const y = e.clientY - eyeRect.top - (eyeRect.height / 2);
+
+                // 计算新的瞳孔位置
+                let newX = x * 0.15;
+                let newY = y * 0.15;
+
+                // 设置瞳孔的新位置
+                pupil.style.transform = `translate(${newX}px, ${newY}px)`;
+            });
+        });
+    </script>
+</body>
+
+</html>
