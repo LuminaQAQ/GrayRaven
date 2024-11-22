@@ -8,7 +8,7 @@ class GrSgImg extends HTMLElement {
             @import "/components/gr-picture/components/gr-sg-img/style/index.css";
 
             </style>
-            <div class="sg-img">
+            <div class="sg-img has-picture">
                 <div class="search-icon">
                     <div class="search-glass"></div>
                     <div class="search-handgrip"></div>
@@ -32,6 +32,7 @@ class GrSgImg extends HTMLElement {
 
         const img = new Image();
         img.src = val;
+        this._container.classList.remove("has-picture");
 
         img.onerror = () => {
             console.error(`[gr-picture] 图片加载失败！`);
