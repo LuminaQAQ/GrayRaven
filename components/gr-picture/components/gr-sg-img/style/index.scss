@@ -9,6 +9,7 @@
 .sg-img {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 
   .search-icon {
     position: absolute;
@@ -18,8 +19,6 @@
 
     filter: opacity(0);
     z-index: 1;
-
-    transition: filter var(--transition-duration);
 
     .search-glass {
       position: absolute;
@@ -51,8 +50,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-
-    transition: transform var(--transition-duration);
   }
 
   &::after {
@@ -67,8 +64,6 @@
 
     transform-origin: center bottom;
     transform: translateY(100%);
-
-    transition: transform var(--transition-duration);
   }
 
   &:hover {
@@ -88,5 +83,19 @@
   &.has-picture {
     visibility: hidden;
     pointer-events: none;
+  }
+
+  &.with-transition {
+    .search-icon {
+      transition: filter var(--transition-duration);
+    }
+
+    img {
+      transition: transform var(--transition-duration);
+    }
+
+    &::after {
+      transition: transform var(--transition-duration);
+    }
   }
 }

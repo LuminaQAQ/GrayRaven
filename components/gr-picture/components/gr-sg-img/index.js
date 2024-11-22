@@ -45,6 +45,12 @@ class GrSgImg extends HTMLElement {
     }
     // #endregion
     // ------- end -------
+
+    connectedCallback() {
+        setTimeout(() => {
+            this._container.classList.add("with-transition");
+        }, 100);
+    }
 }
 
 if (!window.customElements.get("gr-sg-img")) {

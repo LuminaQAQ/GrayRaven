@@ -9,6 +9,7 @@
 .sg-img {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .sg-img .search-icon {
   position: absolute;
@@ -17,7 +18,6 @@
   transform: translate(-50%, -50%);
   filter: opacity(0);
   z-index: 1;
-  transition: filter var(--transition-duration);
 }
 .sg-img .search-icon .search-glass {
   position: absolute;
@@ -42,7 +42,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-duration);
 }
 .sg-img::after {
   content: "";
@@ -54,7 +53,6 @@
   background: var(--mask-color);
   transform-origin: center bottom;
   transform: translateY(100%);
-  transition: transform var(--transition-duration);
 }
 .sg-img:hover .search-icon {
   filter: opacity(1);
@@ -68,4 +66,13 @@
 .sg-img.has-picture {
   visibility: hidden;
   pointer-events: none;
+}
+.sg-img.with-transition .search-icon {
+  transition: filter var(--transition-duration);
+}
+.sg-img.with-transition img {
+  transition: transform var(--transition-duration);
+}
+.sg-img.with-transition::after {
+  transition: transform var(--transition-duration);
 }
