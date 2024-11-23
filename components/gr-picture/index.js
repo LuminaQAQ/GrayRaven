@@ -1,4 +1,6 @@
 import "./components/gr-sg-img/index.js"
+import { stylesheet } from "./style/index.js";
+import "./utils/renderer.js"
 
 class GrPicture extends HTMLElement {
     #state = {
@@ -12,7 +14,7 @@ class GrPicture extends HTMLElement {
 
         shadowRoot.innerHTML = `
             <style>
-                @import "/components/gr-picture/style/index.css";
+                ${stylesheet}
             </style>
             <div class="gr-picture-group-container pc">
                 <div class="col-6">

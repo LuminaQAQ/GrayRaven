@@ -1,3 +1,5 @@
+import { stylesheet } from "./style/index.js";
+
 class GrSgImg extends HTMLElement {
     constructor() {
         super();
@@ -5,8 +7,7 @@ class GrSgImg extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.innerHTML = `
             <style>
-            @import "/components/gr-picture/components/gr-sg-img/style/index.css";
-
+                ${stylesheet}
             </style>
             <div class="sg-img has-picture">
                 <div class="search-icon">
