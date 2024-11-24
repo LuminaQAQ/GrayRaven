@@ -9,12 +9,12 @@ class GrSgImg extends HTMLElement {
             <style>
                 ${stylesheet}
             </style>
-            <div class="sg-img has-picture">
-                <div class="search-icon">
-                    <div class="search-glass"></div>
-                    <div class="search-handgrip"></div>
+            <div class="sg-img has-picture" part="container">
+                <div class="search-icon" part="search-icon">
+                    <div class="search-glass" part="search-glass"></div>
+                    <div class="search-handgrip" part="search-handgrip"></div>
                 </div>
-                <img class="img">
+                <img class="img" part="img">
             </div>
         `;
 

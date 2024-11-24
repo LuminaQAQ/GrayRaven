@@ -16,17 +16,17 @@ class GrPicture extends HTMLElement {
             <style>
                 ${stylesheet}
             </style>
-            <div class="gr-picture-group-container pc">
-                <div class="col-6">
-                    <gr-sg-img></gr-sg-img>
-                    <gr-sg-img></gr-sg-img>
+            <div class="gr-picture-group-container pc" part="container">
+                <div class="col-6" part="left-wrap">
+                    <gr-sg-img part="left-top-img"></gr-sg-img>
+                    <gr-sg-img part="left-bottom-img"></gr-sg-img>
                 </div>
-                <div class="col-12">
-                    <gr-sg-img></gr-sg-img>
+                <div class="col-12" part="center-wrap">
+                    <gr-sg-img part="center-img"></gr-sg-img>
                 </div>
-                <div class="col-6">
-                    <gr-sg-img></gr-sg-img>
-                    <gr-sg-img></gr-sg-img>
+                <div class="col-6" part="right-wrap">
+                    <gr-sg-img part="right-top-img"></gr-sg-img>
+                    <gr-sg-img part="right-bottom-img"></gr-sg-img>
                 </div>
             </div>
         `;
