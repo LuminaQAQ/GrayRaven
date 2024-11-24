@@ -44,10 +44,12 @@ class GrPicture extends HTMLElement {
         this.#state.pictures = val;
 
         this.#state.pictures.forEach((item, index) => {
-            imgs[index].src = item;
-            imgs[index].addEventListener("click", () => {
-                window.open(item);
-            })
+            try {
+                imgs[index].src = item;
+                imgs[index].addEventListener("click", () => {
+                    window.open(item);
+                })
+            } catch (error) { }
         })
     }
     // #endregion
