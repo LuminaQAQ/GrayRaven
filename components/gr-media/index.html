@@ -8,54 +8,102 @@
     <style>
         html,
         body {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
 
             padding: 0;
             margin: 0;
+
+            background-image: url(../../assets/imgs/video-bg.png);
+            background-size: cover;
         }
 
         .mask {
-            width: 100vw;
-            height: 40vh;
+            width: 100%;
+            height: 70vw;
 
             display: flex;
             background-color: transparent;
 
-            .left {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+
+            color: wheat;
+
+            overflow: hidden;
+
+            img {
+                position: absolute;
                 width: 100%;
                 height: 100%;
+                object-fit: cover;
+            }
 
-                background-image: linear-gradient(-45deg, #D99D80, transparent);
+
+            .left-wrap,
+            .right-wrap {
+                height: 70vw;
+            }
+
+            .left,
+            .right {
+                --w: 66.55vw;
+                position: relative;
+                /* height: var(--w); */
+                height: 50vw;
+                width: var(--w);
+
+                flex: 1 0 var(--w);
+
+                &::before {
+                    content: "";
+                    position: absolute;
+
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .left {
+                background-image: linear-gradient(-45deg, rgb(217, 157, 128), transparent);
 
                 clip-path: polygon(0 0, 0 100%, 50% 100%, 100% 0);
 
-                transform: translateX(16.25%) scaleX(1.34);
+                &::before {
+                    background-image: linear-gradient(-45deg, rgba(217, 158, 128, 0.4), transparent);
+
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%);
+                }
             }
 
             .right {
-                width: 100%;
-                height: 100%;
-
-                background-image: linear-gradient(125deg, #DE788A, transparent);
+                text-align: left;
+                background-image: linear-gradient(125deg, rgb(222, 120, 138), transparent);
 
                 clip-path: polygon(100% 0, 100% 100%, 0 100%, 50% 0);
 
-                transform: translateX(-17%) scaleX(1.34);
-            }
-        }
+                transform: translateX(-33.25vw);
 
-        .container {
-            width: 100vw;
-            height: 50vh;
+                &::before {
+                    background-image: linear-gradient(125deg, rgba(222, 120, 139, 0.4), transparent);
+
+                    clip-path: polygon(0 0, 50% 0, 100% 100%, 0 100%);
+                }
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="mask">
-            <div class="left">1</div>
+    <div class="mask">
+        <div class="left-wrap">
+            <div class="left">
+                <img src="../../assets/imgs/video-page/video.png" alt="">
+            </div>
+        </div>
+
+        <div class="right-wrap">
             <div class="right"></div>
         </div>
     </div>
