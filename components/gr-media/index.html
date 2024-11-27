@@ -19,42 +19,32 @@
         }
 
         .mask {
-            width: 100%;
-            height: 70vw;
-
+            width: 100vw;
+            height: 50vw;
             display: flex;
             background-color: transparent;
-
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-
             color: wheat;
-
             overflow: hidden;
-
-            img {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
 
 
             .left-wrap,
             .right-wrap {
-                height: 70vw;
+                position: relative;
+                box-sizing: border-box;
+                height: 50vw;
+                width: 50vw;
+
+                padding: 10vw 0;
             }
 
             .left,
             .right {
-                --w: 66.55vw;
                 position: relative;
-                /* height: var(--w); */
-                height: 50vw;
-                width: var(--w);
-
-                flex: 1 0 var(--w);
+                height: 30vw;
+                width: 66.55vw;
 
                 &::before {
                     content: "";
@@ -68,7 +58,7 @@
             .left {
                 background-image: linear-gradient(-45deg, rgb(217, 157, 128), transparent);
 
-                clip-path: polygon(0 0, 0 100%, 50% 100%, 100% 0);
+                clip-path: polygon(0 0, 0 50%, 0 100%, 50% 100%, 100% 0);
 
                 &::before {
                     background-image: linear-gradient(-45deg, rgba(217, 158, 128, 0.4), transparent);
@@ -77,13 +67,28 @@
                 }
             }
 
+            .left-wrap {
+                .role {
+                    top: 1vw;
+                    right: -10vw;
+                    position: absolute;
+                    width: 40vw;
+                    height: 40vw;
+                    object-fit: contain;
+
+                    pointer-events: none;
+                    user-select: none;
+
+                    clip-path: polygon(0 0, 0 50%, 0 100%, 32% 99%, 141% 0);
+                }
+            }
+
             .right {
-                text-align: left;
                 background-image: linear-gradient(125deg, rgb(222, 120, 138), transparent);
 
                 clip-path: polygon(100% 0, 100% 100%, 0 100%, 50% 0);
 
-                transform: translateX(-33.25vw);
+                transform: translateX(-16.75vw);
 
                 &::before {
                     background-image: linear-gradient(125deg, rgba(222, 120, 139, 0.4), transparent);
@@ -99,8 +104,8 @@
     <div class="mask">
         <div class="left-wrap">
             <div class="left">
-                <img src="../../assets/imgs/video-page/video.png" alt="">
             </div>
+            <img class="role" src="../../assets/imgs/video-page/video.png" alt="">
         </div>
 
         <div class="right-wrap">
