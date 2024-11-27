@@ -18,7 +18,7 @@
             background-size: cover;
         }
 
-        .mask {
+        .gr-media-container {
             width: 100vw;
             height: 50vw;
             display: flex;
@@ -30,20 +30,31 @@
             overflow: hidden;
 
 
-            .left-wrap,
-            .right-wrap {
+            .left-video-wrap,
+            .right-audio-wrap {
                 position: relative;
                 box-sizing: border-box;
                 height: 50vw;
                 width: 50vw;
 
                 padding: 10vw 0;
+
+                .role {
+                    position: absolute;
+                    width: 40vw;
+                    height: 40vw;
+                    object-fit: contain;
+
+                    pointer-events: none;
+                    user-select: none;
+                }
             }
 
-            .left,
-            .right {
+
+            .left-bg,
+            .right-bg {
                 position: relative;
-                height: 30vw;
+                height: 35vw;
                 width: 66.55vw;
 
                 &::before {
@@ -53,63 +64,142 @@
                     width: 100%;
                     height: 100%;
                 }
-            }
 
-            .left {
-                background-image: linear-gradient(-45deg, rgb(217, 157, 128), transparent);
+                .icon-animate {
+                    box-sizing: border-box;
 
-                clip-path: polygon(0 0, 0 50%, 0 100%, 50% 100%, 100% 0);
-
-                &::before {
-                    background-image: linear-gradient(-45deg, rgba(217, 158, 128, 0.4), transparent);
-
-                    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%);
-                }
-            }
-
-            .left-wrap {
-                .role {
-                    top: 1vw;
-                    right: -10vw;
                     position: absolute;
-                    width: 40vw;
-                    height: 40vw;
-                    object-fit: contain;
 
-                    pointer-events: none;
-                    user-select: none;
+                    width: 30vw;
+                    height: 30vw;
 
-                    clip-path: polygon(0 0, 0 50%, 0 100%, 32% 99%, 141% 0);
+                    background-size: contain;
+                }
+
+                .media-title {
+                    position: absolute;
+                    top: 50%;
+
+                    width: 35vw;
+
+                    cursor: pointer;
+
+                    transition: transform 0.5s;
                 }
             }
 
-            .right {
-                background-image: linear-gradient(125deg, rgb(222, 120, 138), transparent);
+            .left-video-wrap {
+                .left-bg {
+                    background-image: linear-gradient(-45deg, rgb(217, 157, 128), transparent);
 
-                clip-path: polygon(100% 0, 100% 100%, 0 100%, 50% 0);
+                    clip-path: polygon(0 0, 0 50%, 0 100%, 50% 100%, 100% 0);
 
-                transform: translateX(-16.75vw);
+                    &::before {
+                        background-image: linear-gradient(-45deg, rgba(217, 158, 128, 0.4), transparent);
 
-                &::before {
-                    background-image: linear-gradient(125deg, rgba(222, 120, 139, 0.4), transparent);
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%);
+                    }
 
-                    clip-path: polygon(0 0, 50% 0, 100% 100%, 0 100%);
+                    .video-animate {
+                        left: 30%;
+                        top: 50%;
+                        transform: translate(-30%, -55%);
+
+                        background-image: url(../../assets/imgs/video-page/video-icon.png);
+
+                        animation: rotate-video 15s infinite linear;
+                    }
+
+                    .video-title {
+                        left: 40%;
+                        transform: translate(-50%, -50%);
+
+                        &:hover {
+                            transform: translate(-55%, -50%);
+                        }
+                    }
                 }
+
+                .role {
+                    clip-path: polygon(0 0, 0 50%, 0 100%, 35% 99%, 129% 0);
+                    top: 1vw;
+                    right: -13.5vw;
+                }
+            }
+
+
+            .right-audio-wrap {
+                .right-bg {
+                    background-image: linear-gradient(125deg, rgb(222, 120, 138), transparent);
+
+                    clip-path: polygon(100% 0, 100% 100%, 0 100%, 50% 0);
+
+                    transform: translateX(-16.75vw);
+
+                    &::before {
+                        background-image: linear-gradient(125deg, rgba(222, 120, 139, 0.4), transparent);
+
+                        clip-path: polygon(0 0, 50% 0, 100% 100%, 0 100%);
+                    }
+
+                    .audio-animate {
+                        right: 20%;
+                        top: 50%;
+                        transform: translate(30%, -45%);
+
+                        background-image: url(./assets/imgs/audio-icon.png);
+                        background-size: contain;
+
+                        animation: rotate-audio 15s infinite linear;
+                    }
+
+                    .audio-title {
+                        right: 35%;
+                        transform: translate(50%, -50%);
+
+                        &:hover {
+                            transform: translate(55%, -50%);
+                        }
+                    }
+                }
+
+                .role {
+                    transform: rotate(-1.25deg);
+                    bottom: -3.45vw;
+                    left: -13.2vw;
+                }
+            }
+        }
+
+        @keyframes rotate-video {
+            to {
+                transform: translate(-30%, -55%) rotate(360deg);
+            }
+        }
+
+        @keyframes rotate-audio {
+            to {
+                transform: translate(30%, -45%) rotate(360deg);
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="mask">
-        <div class="left-wrap">
-            <div class="left">
+    <div class="gr-media-container">
+        <div class="left-video-wrap">
+            <div class="left-bg">
+                <div class="icon-animate video-animate"></div>
+                <img class="media-title video-title" src="./assets/imgs/video-title.png" alt="audio-title">
             </div>
-            <img class="role" src="../../assets/imgs/video-page/video.png" alt="">
+            <img class="role" src="./assets/imgs/video.png" alt="video-role">
         </div>
-
-        <div class="right-wrap">
-            <div class="right"></div>
+        <div class="right-audio-wrap">
+            <div class="right-bg">
+                <div class="icon-animate audio-animate"></div>
+                <img class="media-title audio-title" src="./assets/imgs/audio-title.png" alt="audio-title">
+            </div>
+            <img class="role" src="./assets/imgs/audio.png" alt="audio-role">
         </div>
     </div>
 </body>
