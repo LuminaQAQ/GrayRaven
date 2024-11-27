@@ -47,15 +47,23 @@
 
                     pointer-events: none;
                     user-select: none;
+
+                    transition: transform .5s, filter .5s;
                 }
             }
 
+
+            .icon-animate {
+                transition: filter .5s;
+            }
 
             .left-bg,
             .right-bg {
                 position: relative;
                 height: 35vw;
                 width: 66.55vw;
+
+                transition: transform .5s;
 
                 &::before {
                     content: "";
@@ -169,6 +177,73 @@
                     left: -13.2vw;
                 }
             }
+
+            &.is-video-active {
+                .left-video-wrap {
+                    .left-bg {
+                        transform: translateX(33.5vw);
+                    }
+
+                    .role {
+                        transform: translateX(33.5vw);
+                    }
+                }
+
+                .right-audio-wrap {
+                    .right-bg {
+                        transform: translateX(16.75vw);
+
+                        .media-title {
+                            right: 75%;
+                            top: 90%;
+                            transform: translate(50%, -90%);
+                        }
+                    }
+
+                    .role {
+                        transform: translateX(33.5vw);
+                        filter: opacity(0);
+                    }
+                }
+
+                .icon-animate {
+                    filter: opacity(0);
+                }
+            }
+
+
+            &.is-audio-active {
+                .right-audio-wrap {
+                    .right-bg {
+                        transform: translateX(-50.25vw);
+                    }
+
+                    .role {
+                        transform: translateX(-33.5vw) rotate(-1.25deg);
+                    }
+                }
+
+                .left-video-wrap {
+                    .left-bg {
+                        transform: translateX(-33.5vw);
+
+                        .media-title {
+                            left: 80%;
+                            top: 10%;
+                            transform: translate(-55%, -10%);
+                        }
+                    }
+
+                    .role {
+                        transform: translateX(-33.5vw);
+                        filter: opacity(0);
+                    }
+                }
+
+                .icon-animate {
+                    filter: opacity(0);
+                }
+            }
         }
 
         @keyframes rotate-video {
@@ -202,6 +277,24 @@
             <img class="role" src="./assets/imgs/audio.png" alt="audio-role">
         </div>
     </div>
+
+    <script>
+        const els = {
+            container: document.querySelector(".gr-media-container"),
+            videoBtn: document.querySelector(".video-title"),
+            audioBtn: document.querySelector(".audio-title"),
+        }
+
+        els.videoBtn.addEventListener("click", () => {
+            els.container.classList.remove("is-audio-active");
+            els.container.classList.add("is-video-active");
+        })
+
+        els.audioBtn.addEventListener("click", () => {
+            els.container.classList.remove("is-video-active");
+            els.container.classList.add("is-audio-active");
+        })
+    </script>
 </body>
 
 </html>
