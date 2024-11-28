@@ -1,0 +1,41 @@
+:host {
+  cursor: pointer;
+  display: block;
+  position: relative;
+}
+
+.back-to-main {
+  user-select: none;
+  position: absolute;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-left-color: white;
+  border-bottom-color: white;
+  padding: 0.5vw;
+  padding-right: 2.5vw;
+  color: white;
+  font-size: 1.5vw;
+  font-weight: 500;
+}
+.back-to-main .eng {
+  font-size: 1.25vw;
+}
+.back-to-main::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 40%;
+  height: 2px;
+  background-color: white;
+}
+.back-to-main::after {
+  content: "";
+  position: absolute;
+  top: calc(-50% - 0.45vw);
+  left: calc(30% - 0.5vw);
+  border: 1vw solid transparent;
+  border-left-width: 0;
+  border-bottom-width: 1vw;
+  border-bottom-color: white;
+}

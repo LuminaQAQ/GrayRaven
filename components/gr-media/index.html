@@ -26,9 +26,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            color: wheat;
             overflow: hidden;
-
 
             .left-video-wrap,
             .right-audio-wrap {
@@ -98,7 +96,7 @@
 
             .left-video-wrap {
                 .left-bg {
-                    background-image: linear-gradient(-45deg, rgb(217, 157, 128), transparent);
+                    background-image: linear-gradient(to left, rgb(217, 157, 128), transparent);
 
                     clip-path: polygon(0 0, 0 50%, 0 100%, 50% 100%, 100% 0);
 
@@ -137,7 +135,7 @@
 
             .right-audio-wrap {
                 .right-bg {
-                    background-image: linear-gradient(125deg, rgb(222, 120, 138), transparent);
+                    background-image: linear-gradient(to right, rgb(222, 120, 138), transparent);
 
                     clip-path: polygon(100% 0, 100% 100%, 0 100%, 50% 0);
 
@@ -189,6 +187,16 @@
 
                     .icon-animate {
                         left: 40%;
+                    }
+
+                    .back-to-main {
+                        position: absolute;
+
+                        width: 12vw;
+                        height: 8vw;
+
+                        top: 40vw;
+                        left: 5vw;
                     }
                 }
 
@@ -268,21 +276,25 @@
 </head>
 
 <body>
+    <script type="module" src="./components/gr-back/index.js"></script>
     <div class="gr-media-container">
-        <div class="left-video-wrap">
+        <section class="left-video-wrap">
             <div class="left-bg">
                 <div class="icon-animate video-animate"></div>
                 <img class="media-title video-title" src="./assets/imgs/video-title.png" alt="audio-title">
             </div>
             <img class="role" src="./assets/imgs/video.png" alt="video-role">
-        </div>
-        <div class="right-audio-wrap">
+            <div class="video-swiper-wrap">
+                <gr-back class="back-to-main"></gr-back>
+            </div>
+        </section>
+        <section class="right-audio-wrap">
             <div class="right-bg">
                 <div class="icon-animate audio-animate"></div>
                 <img class="media-title audio-title" src="./assets/imgs/audio-title.png" alt="audio-title">
             </div>
             <img class="role" src="./assets/imgs/audio.png" alt="audio-role">
-        </div>
+        </section>
     </div>
 
     <script>
@@ -290,7 +302,18 @@
             container: document.querySelector(".gr-media-container"),
             videoBtn: document.querySelector(".video-title"),
             audioBtn: document.querySelector(".audio-title"),
+
+            leftBackBtn: document.querySelector(".back-to-main"),
         }
+
+        const methods = {}
+
+        els.container.classList.add("is-video-active");
+
+        els.leftBackBtn.addEventListener("click", () => {
+            els.container.classList.remove("is-video-active");
+            els.container.classList.remove("is-audio-active");
+        })
 
         els.videoBtn.addEventListener("click", () => {
             els.container.classList.remove("is-audio-active");
